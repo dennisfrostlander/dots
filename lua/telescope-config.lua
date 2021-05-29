@@ -1,5 +1,6 @@
 local actions = require("telescope.actions")
 local previewers = require("telescope.previewers")
+local workspace = require("workspace")
 
 local preview_maker_no_highlight = function(filepath, bufnr, opts)
   opts = opts or {}
@@ -26,7 +27,7 @@ require("telescope").setup {
             horizontal = {mirror = false, preview_width = 0.5},
             vertical = {mirror = false}
         },
-        file_sorter = require"telescope.sorters".get_fuzzy_file,
+        file_sorter = require('telescope.sorters').get_fzy_sorter,
         file_ignore_patterns = {},
         generic_sorter = require"telescope.sorters".get_generic_fuzzy_sorter,
         shorten_path = true,
@@ -54,22 +55,35 @@ require("telescope").setup {
                 ["<C-k>"] = actions.move_selection_previous,
                 ["<C-j>"] = actions.move_selection_next
             }
-        },
-        search_dirs = {
-          "/Users/frostlander/projects/travelhub-client"
-        }
+       }
     },
     extensions = {
+        fzy_native = {
+            override_generic_sorter = false,
+            override_file_sorter = true,
+        }
     }
 }
+require('telescope').load_extension('fzy_native')
 
 local opt = {noremap = true, silent = true}
+
+_G.find_files = function()
+  require('telescope.builtin').find_files({
+    search_dirs = workspace.get_workspace_dirs()
+  })
+end
+_G.live_grep = function()
+  require('telescope.builtin').live_grep({
+    search_dirs = workspace.get_workspace_dirs()
+  })
+end
 
 vim.g.mapleader = " "
 
 -- mappings
 vim.api.nvim_set_keymap("n", "<Leader>m",
-                        [[<Cmd>lua require('telescope.builtin').find_files()<CR>]],
+                        [[:lua find_files()<CR>]],
                         opt)
 vim.api.nvim_set_keymap("n", "<Leader>fp",
                         [[<Cmd>lua require('telescope').extensions.media_files.media_files()<CR>]],
@@ -81,7 +95,7 @@ vim.api.nvim_set_keymap("n", "<Leader>fh",
                         [[<Cmd>lua require('telescope.builtin').help_tags()<CR>]],
                         opt)
 vim.api.nvim_set_keymap("n", "<Leader>fg",
-                        [[<Cmd>lua require('telescope.builtin').live_grep()<CR>]],
+                        [[:lua live_grep()<CR>]],
                         opt)
 vim.api.nvim_set_keymap("n", "<Leader>fd",
                         [[<Cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>]],

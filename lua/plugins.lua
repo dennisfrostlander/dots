@@ -8,7 +8,11 @@ return require("packer").startup(
         -- use {"dracula/vim"}
         -- use {"morhetz/gruvbox"}
         use {"arcticicestudio/nord-vim"}
+        -- use {"dennisfrostlander/nord-vim", branch = "master"}
+        -- use 'shaunsingh/nord.nvim'
+        -- use { "shaunsingh/nord.nvim" }
         -- use {"fenetikm/falcon"}
+        -- use {"folke/tokyonight.nvim"}
 
         use {"nvim-lua/popup.nvim"}
         use {"nvim-lua/plenary.nvim"}
@@ -24,7 +28,6 @@ return require("packer").startup(
         use {"norcalli/nvim-colorizer.lua"}
         use {"kyazdani42/nvim-web-devicons"}
 
-        use {"mhinz/vim-startify"}
         use {"lewis6991/gitsigns.nvim"}
         use {"christoomey/vim-tmux-navigator"}
         use {"rmagatti/auto-session"}
@@ -40,11 +43,14 @@ return require("packer").startup(
         use {"neovim/nvim-lspconfig"}
         use {"onsails/lspkind-nvim"}
         use {"nvim-treesitter/nvim-treesitter", run = ':TSUpdate'}
+        use {"nvim-treesitter/playground"}
         use {"hrsh7th/nvim-compe"}
         use {"nvim-lua/completion-nvim"}
         use {"sbdchd/neoformat"}
+        use {"jose-elias-alvarez/nvim-lsp-ts-utils"}
 
         use {"nvim-telescope/telescope.nvim"}
+        use {"nvim-telescope/telescope-fzy-native.nvim"}
         use {"ptzz/lf.vim"}
 
         use {"tweekmonster/startuptime.vim"}

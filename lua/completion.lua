@@ -24,6 +24,7 @@ require "compe".setup {
         buffer = true,
         calc = true,
         vsnip = true,
+        ultisnips = false,
         nvim_lsp = true,
         nvim_lua = true,
         spell = true,

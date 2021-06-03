@@ -27,6 +27,8 @@ return require("packer").startup(
         }
         use {"norcalli/nvim-colorizer.lua"}
         use {"kyazdani42/nvim-web-devicons"}
+        -- use {"Yggdroot/indentLine"}
+        use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
 
         use {"lewis6991/gitsigns.nvim"}
         use {"christoomey/vim-tmux-navigator"}
@@ -37,6 +39,9 @@ return require("packer").startup(
         use {"windwp/nvim-autopairs"}
         use {"alvan/vim-closetag"}
         use {"hrsh7th/vim-vsnip"}
+        use {"hrsh7th/vim-vsnip-integ"}
+        use {"rafamadriz/friendly-snippets"}
+        -- use {"SirVer/ultisnips"}
         use {"ntpeters/vim-better-whitespace"}
         use {"stefandtw/quickfix-reflector.vim"}
 
@@ -45,9 +50,9 @@ return require("packer").startup(
         use {"nvim-treesitter/nvim-treesitter", run = ':TSUpdate'}
         use {"nvim-treesitter/playground"}
         use {"hrsh7th/nvim-compe"}
-        use {"nvim-lua/completion-nvim"}
         use {"sbdchd/neoformat"}
         use {"jose-elias-alvarez/nvim-lsp-ts-utils"}
+        use {"ray-x/lsp_signature.nvim"}
 
         use {"nvim-telescope/telescope.nvim"}
         use {"nvim-telescope/telescope-fzy-native.nvim"}

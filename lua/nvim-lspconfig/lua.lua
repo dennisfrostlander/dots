@@ -33,7 +33,18 @@ vim.cmd([[
 autocmd FileType help nmap <buffer> gd <C-]>
 ]])
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
+
 require("lspconfig").tsserver.setup {
+  capabilities = capabilities,
   on_attach = function(client, bufnr)
     local ts_utils = require("nvim-lsp-ts-utils")
     ts_utils.setup {}
@@ -41,8 +52,16 @@ require("lspconfig").tsserver.setup {
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>rf", ":TSLspRenameFile<CR>", {silent = true})
   end
 }
-require("lspconfig").cssls.setup {}
-require("lspconfig").html.setup {}
-require("lspconfig").angularls.setup {}
+require("lspconfig").cssls.setup {
+  capabilities = capabilities,
+}
+require("lspconfig").html.setup {
+  capabilities = capabilities,
+}
+require("lspconfig").angularls.setup {
+  capabilities = capabilities,
+}
 
 require("lspkind").init({File = "Ôêì "})
+
+require("lsp_signature").on_attach()

@@ -52,7 +52,8 @@ return require("packer").startup(
         use {"hrsh7th/nvim-compe"}
         use {"sbdchd/neoformat"}
         use {"jose-elias-alvarez/nvim-lsp-ts-utils"}
-        use {"ray-x/lsp_signature.nvim"}
+        -- use {"ray-x/lsp_signature.nvim"}
+        use {"glepnir/lspsaga.nvim"}
 
         use {"nvim-telescope/telescope.nvim"}
         use {"nvim-telescope/telescope-fzy-native.nvim"}

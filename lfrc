@@ -1,0 +1,76 @@
+set icons
+set hidden
+set info size
+
+cmd trash $IFS="`printf '\n\t'`"; trash $fx
+map D trash
+
+cmd addDir %{{
+  printf "Directory name or path: "
+  read ans
+  mkdir -p $ans
+  lf -remote "send $id load"
+  lf -remote "send $id select $ans"
+}}
+map A addDir
+
+cmd addFile %{{
+  printf "Filename: "
+  read ans
+  touch $ans
+  lf -remote "send $id load"
+  lf -remote "send $id select $ans"
+}}
+map a addFile
+
+cmd zip ${{
+  set -f
+  filename=$(basename -- "$fx")
+  zipfolder="${filename%.*}"
+  mkdir $zipfolder
+  cp -r $fx $zipfolder
+  zip -r $zipfolder.zip $zipfolder
+  rm -rf $zipfolder
+  lf -remote "send $id load"
+  lf -remote "send $id unselect"
+  lf -remote "send $id select $zipfolder.zip"
+}}
+map <c-x> zip
+
+cmd extract ${{
+  set -f
+  filename=$(basename -- "$f")
+  extfolder="${filename%.*}"
+  case $f in
+    *.tar.bz|*.tar.bz2|*.tbz|*.tbz2) tar xjvf $f;;
+    *.tar.gz|*.tgz) tar xzvf $f;;
+    *.tar.xz|*.txz) tar xJvf $f;;
+    *.zip) unzip $f;;
+    *.rar) unrar x $f;;
+    *.7z) 7z x $f;;
+  esac
+  lf -remote "send $id load"
+  lf -remote "send $id select $extfolder"
+}}
+map X extract
+
+cmd copy-path ${{echo $f | pbcopy}}
+
+cmd fzf_jump ${{
+  res="$(rg --no-heading --smart-case --files --follow --glob "" | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"
+  if [ -d "$res" ]; then
+      cmd="cd"
+  else
+      cmd="select"
+  fi
+  lf -remote "send $id $cmd \"$res\""
+}}
+map <c-f> :fzf_jump
+
+map gh cd ~
+map gd cd ~/Downloads
+map gt cd ~/projects/travelhub-client
+
+push m-
+map Q push '-q
+map <esc> quit

@@ -19,7 +19,7 @@ vim.o.ruler = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.termguicolors = true
-vim.o.virtualedit = "all"
+-- vim.o.virtualedit = "all"
 vim.o.wrap = false
 vim.wo.relativenumber = true
 

@@ -42,9 +42,18 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     'additionalTextEdits',
   }
 }
+capabilities.workspace.configuration = true
+capabilities.workspace.didChangeConfiguration = {}
+capabilities.workspace.didChangeConfiguration.dynamicRegistration = true
 
 require("lspconfig").tsserver.setup {
   capabilities = capabilities,
+  on_init = function(client)
+    local settings = {}
+    settings["typescript.preferences.importModuleSpecifier"] = "relative"
+    client.notify("workspace/didChangeConfiguration", {settings = settings})
+    return true
+  end,
   on_attach = function(client, bufnr)
     local ts_utils = require("nvim-lsp-ts-utils")
     ts_utils.setup {}
@@ -58,8 +67,16 @@ require("lspconfig").cssls.setup {
 require("lspconfig").html.setup {
   capabilities = capabilities,
 }
+
+-- local project_library_path = "/Users/frostlander/.nvm/versions/node/v12.18.4/lib/node_modules"
+-- local cmd = {"ngserver", "--stdio", "--tsProbeLocations", project_library_path , "--ngProbeLocations", project_library_path}
+
 -- require("lspconfig").angularls.setup {
 --   capabilities = capabilities,
+  -- cmd = cmd,
+  -- on_new_config = function(new_config,new_root_dir)
+  --   new_config.cmd = cmd
+  -- end,
 -- }
 
 require("lspkind").init({File = "Ôêì "})

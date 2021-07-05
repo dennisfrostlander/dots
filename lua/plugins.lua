@@ -56,7 +56,7 @@ return require("packer").startup(
         use {"glepnir/lspsaga.nvim"}
 
         use {"nvim-telescope/telescope.nvim"}
-        use {"nvim-telescope/telescope-fzy-native.nvim"}
+        use {"nvim-telescope/telescope-fzf-native.nvim", run = 'make' }
         use {"ptzz/lf.vim"}
 
         use {"tweekmonster/startuptime.vim"}

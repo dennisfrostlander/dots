@@ -9,6 +9,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 vim.o.cmdheight = 1
+vim.o.clipboard = "unnamedplus"
 vim.o.colorcolumn = "999999"
 vim.o.cursorline = true
 vim.o.guicursor = "n-v-c-sm:block-Cursor,i-ci-ve:ver25-iCursor,r-cr-o:hor20"
@@ -19,21 +20,16 @@ vim.o.ruler = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.termguicolors = true
+vim.o.updatetime = 250
 -- vim.o.virtualedit = "all"
 vim.o.wrap = false
+vim.wo.number = true
+vim.wo.numberwidth = 2
 vim.wo.relativenumber = true
+vim.wo.signcolumn = "yes"
 
-vim.cmd "colorscheme nord"
 vim.cmd "syntax enable"
 vim.cmd "syntax on"
 
--- Persistent undo
-vim.cmd([[
-let undo_dir=$HOME.'/.vim/undo'
-if !isdirectory(undo_dir)
-    call mkdir(undo_dir, 'p')
-endif
-set undofile
-let &undodir=undo_dir
-]])
-
+vim.api.nvim_set_keymap("i", "jk", "<ESC>", {})
+vim.api.nvim_set_keymap("n", "<leader>w", ":wa<CR>", {})

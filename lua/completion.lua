@@ -1,9 +1,7 @@
 vim.cmd [[packadd nvim-lspconfig]]
 vim.cmd [[packadd nvim-compe]]
 
-local npairs = require('nvim-autopairs')
-
-vim.o.completeopt = "menuone,noinsert"
+vim.o.completeopt = "menuone,noinsert,noselect,preview"
 vim.o.pumheight = 30
 
 require "compe".setup {
@@ -20,17 +18,17 @@ require "compe".setup {
     max_menu_width = 100,
     documentation = true,
     source = {
-        path = true,
-        buffer = true,
-        calc = true,
-        vsnip = true,
-        ultisnips = false,
-        nvim_lsp = true,
-        nvim_lua = true,
-        spell = false,
-        tags = true,
-        snippets_nvim = false,
-        treesitter = false
+      path = true,
+      buffer = true,
+      calc = true,
+      vsnip = true,
+      ultisnips = false,
+      nvim_lsp = true,
+      nvim_lua = true,
+      spell = false,
+      tags = true,
+      snippets_nvim = false,
+      treesitter = false
     }
 }
 
@@ -72,30 +70,13 @@ _G.s_tab_complete = function()
 end
 
 vim.g.completion_confirm_key = ""
-_G.s_completion_confirm=function()
-  if vim.fn.pumvisible() ~= 0  then
-    if vim.fn.complete_info()["selected"] ~= -1 then
-      vim.fn["compe#confirm"]()
-      return npairs.esc("<c-y>")
-    else
-      vim.defer_fn(function()
-        vim.fn["compe#confirm"]("<cr>")
-      end, 20)
-      return npairs.esc("<c-n>")
-    end
-  else
-    return npairs.check_break_line_char()
-  end
-end
 
 vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
-vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('<CR>')", {expr=true})
+vim.api.nvim_set_keymap("i", "<CR>", [[compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))]], {expr=true})
 vim.api.nvim_set_keymap("i", "<C-y>", "compe#complete()", {expr=true})
 
 vim.api.nvim_set_keymap("i", "<C-j>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'", {expr=true})
-vim.api.nvim_set_keymap('i' , '<CR>','v:lua.s_completion_confirm()', {expr = true , noremap = true})
-

@@ -3,7 +3,6 @@ pcall(vim.cmd, [[packadd packer.nvim]])
 return require("packer").startup(
     function(use)
         use {"wbthomason/packer.nvim", opt = true}
-        use {"famiu/nvim-reload"}
 
         -- use {"dracula/vim"}
         -- use {"morhetz/gruvbox"}
@@ -27,8 +26,7 @@ return require("packer").startup(
         }
         use {"norcalli/nvim-colorizer.lua"}
         use {"kyazdani42/nvim-web-devicons"}
-        -- use {"Yggdroot/indentLine"}
-        use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
+        use {"lukas-reineke/indent-blankline.nvim"}
 
         use {"lewis6991/gitsigns.nvim"}
         use {"christoomey/vim-tmux-navigator"}
@@ -41,7 +39,6 @@ return require("packer").startup(
         use {"hrsh7th/vim-vsnip"}
         use {"hrsh7th/vim-vsnip-integ"}
         use {"rafamadriz/friendly-snippets"}
-        -- use {"SirVer/ultisnips"}
         use {"ntpeters/vim-better-whitespace"}
         use {"stefandtw/quickfix-reflector.vim"}
 
@@ -50,12 +47,10 @@ return require("packer").startup(
         use {"nvim-treesitter/nvim-treesitter", run = ':TSUpdate'}
         use {"nvim-treesitter/playground"}
         use {"hrsh7th/nvim-compe"}
-        use {"sbdchd/neoformat"}
         use {"jose-elias-alvarez/nvim-lsp-ts-utils"}
-        -- use {"ray-x/lsp_signature.nvim"}
         use {"glepnir/lspsaga.nvim"}
 
-        use {"nvim-telescope/telescope.nvim"}
+        use {"nvim-telescope/telescope.nvim", commit = "999fad2ce514d869b736aa5d948d355fad89be8d"}
         use {"nvim-telescope/telescope-fzf-native.nvim", run = 'make' }
         use {"ptzz/lf.vim"}
 

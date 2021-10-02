@@ -16,19 +16,13 @@ return require("packer").startup(
         use {"nvim-lua/popup.nvim"}
         use {"nvim-lua/plenary.nvim"}
         use {"voldikss/vim-floaterm"}
-        use {
-          'hoob3rt/lualine.nvim',
-          config = function()
-            require('lualine').setup{
-              options = {theme = 'nord'}
-            }
-          end
-        }
+        use {"hoob3rt/lualine.nvim"}
         use {"norcalli/nvim-colorizer.lua"}
         use {"kyazdani42/nvim-web-devicons"}
         use {"lukas-reineke/indent-blankline.nvim"}
 
         use {"lewis6991/gitsigns.nvim"}
+        use {"sindrets/diffview.nvim"}
         use {"christoomey/vim-tmux-navigator"}
         use {"rmagatti/auto-session"}
 
@@ -46,9 +40,15 @@ return require("packer").startup(
         use {"onsails/lspkind-nvim"}
         use {"nvim-treesitter/nvim-treesitter", run = ':TSUpdate'}
         use {"nvim-treesitter/playground"}
-        use {"hrsh7th/nvim-compe"}
+        use {"hrsh7th/cmp-nvim-lsp"}
+        use {"hrsh7th/cmp-buffer"}
+        use {"hrsh7th/nvim-cmp"}
+        use {"hrsh7th/cmp-vsnip"}
+        use {"f3fora/cmp-spell"}
+        use {"hrsh7th/cmp-path"}
         use {"jose-elias-alvarez/nvim-lsp-ts-utils"}
         use {"glepnir/lspsaga.nvim"}
+        use {"ray-x/lsp_signature.nvim"}
 
         use {"nvim-telescope/telescope.nvim", commit = "999fad2ce514d869b736aa5d948d355fad89be8d"}
         use {"nvim-telescope/telescope-fzf-native.nvim", run = 'make' }

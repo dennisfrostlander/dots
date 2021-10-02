@@ -1,6 +1,20 @@
 vim.cmd [[packadd nvim-web-devicons]]
 
-require "nvim-web-devicons".setup {
+require("lualine").setup{
+  options = {
+    theme = "nord"
+  },
+  sections = {
+    lualine_a = {"mode"},
+    lualine_b = {},
+    lualine_c = {"filename"},
+    lualine_x = {"filetype"},
+    lualine_y = {"progress"},
+    lualine_z = {"location"}
+  },
+}
+
+require("nvim-web-devicons").setup {
     override = {
         html = {
             icon = "",

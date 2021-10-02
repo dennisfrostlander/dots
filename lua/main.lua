@@ -4,13 +4,13 @@ require("general")
 require("editing")
 require("undo")
 
-require("nord")
-require("icons")
-
 require("syntax")
 require("lsp")
+require("lang")
 require("completion")
 
 require("navigation")
 require("vcs")
 
+require("nord")
+require("ui")

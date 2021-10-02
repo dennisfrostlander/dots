@@ -1,82 +1,49 @@
 vim.cmd [[packadd nvim-lspconfig]]
-vim.cmd [[packadd nvim-compe]]
 
-vim.o.completeopt = "menuone,noinsert,noselect,preview"
+vim.o.completeopt = "menuone,noinsert,preview"
 vim.o.pumheight = 30
 
-require "compe".setup {
-    enabled = true,
-    autocomplete = true,
-    debug = false,
-    min_length = 1,
-    preselect = "enable",
-    throttle_time = 600,
-    source_timeout = 200,
-    incomplete_delay = 400,
-    max_abbr_width = 100,
-    max_kind_width = 100,
-    max_menu_width = 100,
-    documentation = true,
-    source = {
-      path = true,
-      buffer = true,
-      calc = true,
-      vsnip = true,
-      ultisnips = false,
-      nvim_lsp = true,
-      nvim_lua = true,
-      spell = false,
-      tags = true,
-      snippets_nvim = false,
-      treesitter = false
-    }
-}
-
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
+local cmp = require('cmp')
+local lspkind = require('lspkind')
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
+    end,
+  },
+  mapping = {
+    ['<C-y>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' },
+    { name = 'buffer' },
+    { name = 'path' },
+    { name = 'spell' },
+  },
+  completion = {
+    -- Preselect
+    completeopt = 'menu,menuone,noinsert',
+  },
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item.kind = lspkind.presets.default[vim_item.kind]
+      return vim_item
     end
-end
+  }
+})
 
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  elseif vim.fn.call("vsnip#available", {1}) == 1 then
-    return t "<Plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn['compe#complete']()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
-  else
-    return t "<S-Tab>"
-  end
-end
-
-vim.g.completion_confirm_key = ""
-
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-
-vim.api.nvim_set_keymap("i", "<CR>", [[compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))]], {expr=true})
-vim.api.nvim_set_keymap("i", "<C-y>", "compe#complete()", {expr=true})
+require("nvim-autopairs").setup({
+  check_line_pair = false,
+})
+-- you need setup cmp first put this after cmp.setup()
+require("nvim-autopairs.completion.cmp").setup({
+  map_cr = true,
+  insert = false,
+})
 
 vim.api.nvim_set_keymap("i", "<C-j>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'", {expr=true})

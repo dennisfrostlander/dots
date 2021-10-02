@@ -28,8 +28,10 @@ vim.wo.numberwidth = 2
 vim.wo.relativenumber = true
 vim.wo.signcolumn = "yes"
 
-vim.cmd "syntax enable"
-vim.cmd "syntax on"
-
 vim.api.nvim_set_keymap("i", "jk", "<ESC>", {})
 vim.api.nvim_set_keymap("n", "<leader>w", ":wa<CR>", {})
+
+require('auto-session').setup({
+  -- Do not show prompt at startup.
+  log_level = "error"
+})

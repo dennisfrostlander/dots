@@ -1,5 +1,7 @@
-local ts_config = require("nvim-treesitter.configs")
+vim.cmd "syntax enable"
+vim.cmd "syntax on"
 
+local ts_config = require("nvim-treesitter.configs")
 ts_config.setup {
   ensure_installed = {
     "typescript",

@@ -1,5 +1,4 @@
 vim.cmd [[packadd nvim-lspconfig]]
-vim.cmd [[packadd nvim-compe]]
 
 local function map(mode, lhs, rhs, opts)
     local options = {noremap = true}
@@ -44,12 +43,21 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 require("lspconfig").tsserver.setup {
-  capabilities = capabilities,
+  capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities),
   on_attach = function(client, bufnr)
     local ts_utils = require("nvim-lsp-ts-utils")
     ts_utils.setup {}
     ts_utils.setup_client(client)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>rf", ":TSLspRenameFile<CR>", {silent = true})
+    require("lsp_signature").on_attach({
+      bind = true,
+      handler_opts = {
+        border = "single"
+      },
+      hint_enable = false,
+      floating_window = true,
+      fix_pos = true,
+    }, bufnr)
   end,
   init_options = {
     preferences = {
@@ -66,15 +74,15 @@ require("lspconfig").html.setup {
 
 USER = vim.fn.expand('$USER')
 
-local sumneko_root_path = ""
-local sumneko_binary = ""
-if vim.fn.has("mac") == 1 then
-  sumneko_root_path = "/Users/" .. USER .. "/projects/lua-language-server"
-  sumneko_binary = sumneko_root_path .. "/bin/macOS/lua-language-server"
-else
-  print("Unsupported system for sumneko")
-end
--- require'lspconfig'.sumneko_lua.setup {
+-- local sumneko_root_path = ""
+-- local sumneko_binary = ""
+-- if vim.fn.has("mac") == 1 then
+--   sumneko_root_path = "/Users/" .. USER .. "/projects/lua-language-server"
+--   sumneko_binary = sumneko_root_path .. "/bin/macOS/lua-language-server"
+-- else
+--   print("Unsupported system for sumneko")
+-- end
+-- require("lspconfig").sumneko_lua.setup {
 --   cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
 --   settings = {
 --     Lua = {
@@ -98,7 +106,7 @@ end
 --     },
 --   },
 -- }
--- require"lspconfig".efm.setup {
+-- require("lspconfig").efm.setup {
 --     init_options = {documentFormatting = true},
 --     filetypes = {"lua"},
 --     settings = {
@@ -113,6 +121,7 @@ end
 --         }
 --     }
 -- }
+
 -- local project_library_path = "/Users/frostlander/.nvm/versions/node/v12.18.4/lib/node_modules"
 -- local cmd = {"ngserver", "--stdio", "--tsProbeLocations", project_library_path , "--ngProbeLocations", project_library_path}
 -- require("lspconfig").angularls.setup {

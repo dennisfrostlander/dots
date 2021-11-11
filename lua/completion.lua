@@ -21,29 +21,47 @@ cmp.setup({
   sources = {
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
-    { name = 'buffer' },
+    { name = 'buffer',
+      opts = {
+        get_bufnrs = function()
+          local bufs = {}
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            bufs[vim.api.nvim_win_get_buf(win)] = true
+          end
+          return vim.tbl_keys(bufs)
+        end,
+      },
+    },
     { name = 'path' },
     { name = 'spell' },
   },
-  completion = {
-    -- Preselect
-    completeopt = 'menu,menuone,noinsert',
-  },
+  -- completion = {
+  --   -- Preselect
+  --   completeopt = 'menu,menuone,noinsert',
+  -- },
   formatting = {
     format = function(entry, vim_item)
       vim_item.kind = lspkind.presets.default[vim_item.kind]
+      vim_item.menu = ({
+        buffer = "[buf]",
+        nvim_lsp = "[lsp]",
+        path = "[path]",
+        vsnip = "[snip]",
+      })[entry.source.name]
       return vim_item
     end
   }
 })
 
 require("nvim-autopairs").setup({
-  check_line_pair = false,
 })
--- you need setup cmp first put this after cmp.setup()
-require("nvim-autopairs.completion.cmp").setup({
-  map_cr = true,
-  insert = false,
-})
+-- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+-- local cmp = require('cmp')
+-- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 
-vim.api.nvim_set_keymap("i", "<C-j>", "vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-j>'", {expr=true})
+vim.api.nvim_set_keymap("i", "<C-j>", "vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'",
+  {expr=true})
+vim.api.nvim_set_keymap("i", "<Tab>", "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'",
+  {expr=true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
+  {expr=true})

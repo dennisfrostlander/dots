@@ -25,7 +25,6 @@ map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 -- map("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 map("n", "[g", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
 map("n", "]g", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-map("n", "<Leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 map("n", "<Leader>k", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
 
 vim.cmd([[
@@ -71,6 +70,8 @@ require("lspconfig").cssls.setup {
 require("lspconfig").html.setup {
   capabilities = capabilities,
 }
+
+map("n", "<Leader>ri", ":TSLspOrganizeSync<CR>", {silent = true})
 
 USER = vim.fn.expand('$USER')
 
@@ -149,3 +150,7 @@ map("n", "<C-g>", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR
 map("i", "<C-g>", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>", opts)
 -- map("n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
 -- map("n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
+
+require("trouble").setup {
+}
+map("n", "<Leader>vd", ":TroubleToggle lsp_workspace_diagnostics<CR>", opts)

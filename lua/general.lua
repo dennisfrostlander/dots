@@ -23,6 +23,7 @@ vim.o.termguicolors = true
 vim.o.updatetime = 250
 -- vim.o.virtualedit = "all"
 vim.o.wrap = false
+vim.o.fillchars = "vert: "
 vim.wo.number = true
 vim.wo.numberwidth = 2
 vim.wo.relativenumber = true
@@ -30,6 +31,8 @@ vim.wo.signcolumn = "yes"
 
 vim.api.nvim_set_keymap("i", "jk", "<ESC>", {})
 vim.api.nvim_set_keymap("n", "<leader>w", ":wa<CR>", {})
+vim.api.nvim_set_keymap("n", "<Leader>q", ":q<CR>", {})
+vim.api.nvim_set_keymap("n", "Q", ":q!<CR>", {})
 
 require('auto-session').setup({
   -- Do not show prompt at startup.

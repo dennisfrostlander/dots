@@ -47,10 +47,13 @@ return require("packer").startup(
         use {"f3fora/cmp-spell"}
         use {"hrsh7th/cmp-path"}
         use {"jose-elias-alvarez/nvim-lsp-ts-utils"}
-        use {"glepnir/lspsaga.nvim"}
+        -- Temp fix for code actions in nvim 0.5.1
+        use {"rinx/lspsaga.nvim"}
         use {"ray-x/lsp_signature.nvim"}
+        use {"sbdchd/neoformat"}
+        use {"folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }
 
-        use {"nvim-telescope/telescope.nvim", commit = "999fad2ce514d869b736aa5d948d355fad89be8d"}
+        use {"nvim-telescope/telescope.nvim"}
         use {"nvim-telescope/telescope-fzf-native.nvim", run = 'make' }
         use {"ptzz/lf.vim"}
 

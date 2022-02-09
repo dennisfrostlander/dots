@@ -80,6 +80,9 @@ local opt = {noremap = true, silent = true}
 vim.api.nvim_set_keymap("n", "<Leader><TAB>",
   [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]],
   opt)
+vim.api.nvim_set_keymap("n", "<Leader><Space>",
+  [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]],
+  opt)
 vim.api.nvim_set_keymap("n", "<Leader>m",
   [[:lua find_files()<CR>]],
   opt)

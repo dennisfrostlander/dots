@@ -1,5 +1,8 @@
 vim.cmd [[packadd nvim-lspconfig]]
 
+-- Uncomment for debugging: lua vim.cmd('tabe'..vim.lsp.get_log_path())
+-- vim.lsp.set_log_level("debug")
+
 local function map(mode, lhs, rhs, opts)
     local options = {noremap = true}
     if opts then options = vim.tbl_extend("force", options, opts) end
@@ -23,8 +26,8 @@ map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 --     "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
 -- -- --     opts)
 -- map("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-map("n", "[g", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-map("n", "]g", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+map("n", "[g", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+map("n", "]g", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 map("n", "<Leader>k", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
 
 vim.cmd([[

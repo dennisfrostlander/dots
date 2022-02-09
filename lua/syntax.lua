@@ -15,6 +15,7 @@ ts_config.setup {
   },
   highlight = {
     enable = true,
+    disable = { "html", "lua" },
     use_languagetree = true
   },
 }

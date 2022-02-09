@@ -1,10 +1,10 @@
 vim.cmd [[packadd nvim-lspconfig]]
 
-vim.o.completeopt = "menuone,noinsert,preview"
+vim.o.completeopt = "menuone,noinsert,preview,noselect"
 vim.o.pumheight = 30
 
-local cmp = require('cmp')
 local lspkind = require('lspkind')
+local cmp = require('cmp')
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -15,14 +15,14 @@ cmp.setup({
     ['<C-y>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+    ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+    ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
   },
   sources = {
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
     { name = 'buffer',
-      opts = {
+      options = {
         get_bufnrs = function()
           local bufs = {}
           for _, win in ipairs(vim.api.nvim_list_wins()) do
@@ -59,9 +59,9 @@ require("nvim-autopairs").setup({
 -- local cmp = require('cmp')
 -- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 
-vim.api.nvim_set_keymap("i", "<C-j>", "vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-j>'",
+vim.api.nvim_set_keymap("i", "<C-l>", "vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-l>'",
   {expr=true})
-vim.api.nvim_set_keymap("i", "<Tab>", "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'",
+vim.api.nvim_set_keymap("i", "<C-j>", "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<C-j>'",
   {expr=true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
+vim.api.nvim_set_keymap("i", "<C-k>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<C-k>'",
   {expr=true})

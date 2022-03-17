@@ -58,5 +58,7 @@ return require("packer").startup(
         use {"ptzz/lf.vim"}
 
         use {"tweekmonster/startuptime.vim"}
+
+        require("plugins_corp").setup(use)
     end
 )

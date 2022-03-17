@@ -16,7 +16,17 @@ ts_config.setup {
   highlight = {
     enable = true,
     disable = { "html", "lua" },
-    use_languagetree = true
+    -- use_languagetree = true
+    custom_captures = {
+      ["gmacros"] = "gmacros",
+      ["gmacrosSubtle"] = "gmacrosSubtle",
+      ["gmacroTest"] = "gmacroTest",
+      ["gmacroTestParameter"] = "gmacroTestParameter",
+      ["cppNamespaceDefinition"] = "cppNamespaceDefinition",
+      ["cppFunctionDeclaration"] = "cppFunctionDeclaration",
+      ["cppQualifiedIdentifier"] = "cppQualifiedIdentifier",
+      ["cppExtraKeywords"] = "cppExtraKeywords",
+    },
   },
 }
 

@@ -14,10 +14,11 @@ local opts = {noremap = true}
 -- Mappings.
 map("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
 map("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+-- map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 -- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 
 -- map("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 -- map("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 -- map("i", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 -- map("n", "<Leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
@@ -72,6 +73,49 @@ require("lspconfig").cssls.setup {
 }
 require("lspconfig").html.setup {
   capabilities = capabilities,
+}
+
+-- Add a CiderLSP configuration.
+local nvim_lsp = require('lspconfig')
+local configs = require('lspconfig.configs')
+configs.ciderlsp = {
+ default_config = {
+   cmd = {'/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses'};
+   filetypes = {'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl'};
+   root_dir = nvim_lsp.util.root_pattern('BUILD');
+   settings = {};
+ }
+}
+
+-- Setup CiderLSP.
+nvim_lsp.ciderlsp.setup{
+  on_attach = function(client, bufnr)
+    -- Omni-completion via LSP. See `:help compl-omni`. Use <C-x><C-o> in
+    -- insert mode. Or use an external autocompleter (see below) for a
+    -- smoother UX.
+    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    if vim.lsp.formatexpr then -- Neovim v0.6.0+ only.
+      vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr")
+    end
+    if vim.lsp.tagfunc then -- Neovim v0.6.0+ only.
+      -- Tag functionality via LSP. See `:help tag-commands`. Use <c-]> to
+      -- go-to-definition.
+      vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
+    end
+
+    local opts = { noremap = true, silent = true }
+    -- See `:help vim.lsp.*` for documentation on any of the below functions.
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
+
+    -- vim.api.nvim_command("augroup LSP")
+    -- vim.api.nvim_command("autocmd!")
+    -- if client.resolved_capabilities.document_highlight then
+    --   vim.api.nvim_command("autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()")
+    --   vim.api.nvim_command("autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()")
+    --   vim.api.nvim_command("autocmd CursorMoved <buffer> lua vim.lsp.util.buf_clear_references()")
+    -- end
+    -- vim.api.nvim_command("augroup END")
+  end
 }
 
 map("n", "<Leader>ri", ":TSLspOrganizeSync<CR>", {silent = true})

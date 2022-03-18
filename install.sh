@@ -1,6 +1,9 @@
-ln -s -f .zshrc ~/.zshrc
-ln -s -f .zshrc_icons ~/.zshrc_icons
-ln -s -f .tmux.conf ~/.tmux.conf
-ln -s -f .dir_colors ~/.dir_colors
-ln -s -f .alacritty.yml ~/.alacritty.yml
-ln -s -f lfrc ~/.config/lf/lfrc
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+
+ln -s -f "${SCRIPTPATH}"/.zshrc ~/.zshrc
+ln -s -f "${SCRIPTPATH}"/.zshrc_icons ~/.zshrc_icons
+ln -s -f "${SCRIPTPATH}"/.tmux.conf ~/.tmux.conf
+ln -s -f "${SCRIPTPATH}"/.dir_colors ~/.dir_colors
+ln -s -f "${SCRIPTPATH}"/.alacritty.yml ~/.alacritty.yml
+ln -s -f "${SCRIPTPATH}"/lfrc ~/.config/lf/lfrc

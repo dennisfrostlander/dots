@@ -199,8 +199,9 @@ add-zsh-hook preexec set-title-preexec
 
 # export KEYTIMEOUT=1
 
-source ~/.zshrc_icons
-eval $(gdircolors ~/.dir_colors)
+[ -f ~/.zshrc_icons ] && source ~/.zshrc_icons
+(command -v gdircolors &> /dev/null) && eval $(gdircolors ~/.dir_colors)
+(command -v dircolors &> /dev/null) && eval $(dircolors ~/.dir_colors)
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/frostlander/google-cloud-sdk/path.zsh.inc' ];
@@ -211,6 +212,7 @@ fi
 # if [ -f '/Users/frostlander/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frostlander/google-cloud-sdk/completion.zsh.inc'; fi
 
 # After lf exits, cd to last visited dir.
+unalias l
 l() {
   tmp="$(mktemp)"
   /usr/local/bin/lf --last-dir-path="$tmp" "$@"

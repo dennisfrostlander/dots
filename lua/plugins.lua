@@ -59,6 +59,6 @@ return require("packer").startup(
 
         use {"tweekmonster/startuptime.vim"}
 
-        require("plugins_corp").setup(use)
+        use {"sso://googler@user/vintharas/telescope-codesearch.nvim"}
     end
 )

@@ -40,16 +40,20 @@ cmp.setup({
   --   completeopt = 'menu,menuone,noinsert',
   -- },
   formatting = {
-    format = function(entry, vim_item)
-      vim_item.kind = lspkind.presets.default[vim_item.kind]
-      vim_item.menu = ({
-        buffer = "[buf]",
-        nvim_lsp = "[lsp]",
-        path = "[path]",
-        vsnip = "[snip]",
-      })[entry.source.name]
-      return vim_item
-    end
+    format = lspkind.cmp_format({
+      mode = 'symbol_text',
+      maxwidth = 50,
+      before = function (entry, vim_item)
+        vim_item.kind = lspkind.presets.default[vim_item.kind]
+        vim_item.menu = ({
+          buffer = "[buf]",
+          nvim_lsp = "[lsp]",
+          path = "[path]",
+          vsnip = "[snip]",
+        })[entry.source.name]
+        return vim_item
+      end
+    })
   }
 })
 
@@ -61,7 +65,7 @@ require("nvim-autopairs").setup({
 
 vim.api.nvim_set_keymap("i", "<C-l>", "vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-l>'",
   {expr=true})
-vim.api.nvim_set_keymap("i", "<C-j>", "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<C-j>'",
+vim.api.nvim_set_keymap("i", "<Tab>", "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'",
   {expr=true})
-vim.api.nvim_set_keymap("i", "<C-k>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<C-k>'",
+vim.api.nvim_set_keymap("i", "<S-Tab>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
   {expr=true})

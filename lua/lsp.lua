@@ -52,15 +52,6 @@ require("lspconfig").tsserver.setup {
     ts_utils.setup {}
     ts_utils.setup_client(client)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>rf", ":TSLspRenameFile<CR>", {silent = true})
-    require("lsp_signature").on_attach({
-      bind = true,
-      handler_opts = {
-        border = "single"
-      },
-      hint_enable = false,
-      floating_window = true,
-      fix_pos = true,
-    }, bufnr)
   end,
   init_options = {
     preferences = {
@@ -182,6 +173,17 @@ USER = vim.fn.expand('$USER')
 
 require("lspkind").init({File = "Ôêì "})
 
+require("lsp_signature").setup({
+  bind = true,
+  handler_opts = {
+    border = "single"
+  },
+  hint_enable = false,
+  floating_window = true,
+  fix_pos = true,
+  toggle_key = "<C-k>"
+}, bufnr)
+
 local saga = require("lspsaga")
 saga.init_lsp_saga({
  use_saga_diagnostic_sign = false,
@@ -192,9 +194,7 @@ map("n", "<Leader>rn", ":Lspsaga rename<CR>", opts)
 map("n", "<Leader>j", ":Lspsaga code_action<CR>", opts)
 map("v", "<Leader>j", ":Lspsaga range_code_action<CR>", opts)
 
-map("n", "K", ":Lspsaga hover_doc<CR>", opts)
-map("n", "<C-g>", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>", opts)
-map("i", "<C-g>", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>", opts)
+map("n", "K", ":lua vim.lsp.buf.signature_help()<CR>", opts)
 -- map("n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
 -- map("n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
 

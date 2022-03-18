@@ -35,8 +35,7 @@ hi link gmacrosSubtle CommentItalic
 hi link gmacroTestParameter Nord4
 hi link cppExtraKeywords TSType
 hi link cppNamespaceDefinition TSType
-hi link cppFunctionDeclaration TSType
-hi cppFunctionDeclaration gui=italic
+hi link cppFunctionDeclaration TSKeyword
 hi link cppQualifiedIdentifier TSType
 
 hi! clear TSVariable

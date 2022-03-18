@@ -3,7 +3,7 @@ vim.cmd "syntax manual"
 vim.cmd([[
 augroup syntax
   autocmd!
-  au FileType html,gitcommit,sh,zsh set syntax=ON
+  au FileType html,yaml,gitcommit,sh,zsh set syntax=ON
 augroup END
 ]])
 

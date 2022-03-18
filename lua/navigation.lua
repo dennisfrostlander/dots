@@ -121,6 +121,10 @@ vim.api.nvim_set_keymap("n", "<Leader>fs",
   [[<Cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
   opt)
 
+vim.api.nvim_set_keymap("n", "<Leader>fw",
+  [[<Cmd>lua require('navigation_piper').find_workspaces()<CR>]],
+  opt)
+
 vim.api.nvim_set_keymap("n", "gr",
   [[<Cmd>lua require('telescope.builtin').lsp_references()<CR>]],
   opt)

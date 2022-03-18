@@ -1,5 +1,5 @@
-SCRIPT=$(readlink -f "$0")
-SCRIPTPATH=$(dirname "$SCRIPT")
+SCRIPT=$(realpath "$0")
+SCRIPTPATH=$(dirname $(realpath -s $0))
 
 ln -s -f "${SCRIPTPATH}"/.zshrc ~/.zshrc
 ln -s -f "${SCRIPTPATH}"/.zshrc_icons ~/.zshrc_icons

@@ -3,7 +3,7 @@ vim.cmd "syntax manual"
 vim.cmd([[
 augroup syntax
   autocmd!
-  au BufEnter *.html set syntax=ON
+  au FileType html,gitcommit,sh,zsh set syntax=ON
 augroup END
 ]])
 

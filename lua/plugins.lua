@@ -22,6 +22,7 @@ return require("packer").startup(
         use {"lukas-reineke/indent-blankline.nvim"}
 
         use {"lewis6991/gitsigns.nvim"}
+        use {"mhinz/vim-signify"}
         use {"sindrets/diffview.nvim"}
         use {"christoomey/vim-tmux-navigator"}
         use {"rmagatti/auto-session"}

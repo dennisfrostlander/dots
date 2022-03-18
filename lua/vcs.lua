@@ -1,3 +1,10 @@
+vim.cmd([[
+let g:signify_skip = { 'vcs': { 'allow': ['hg'] } }
+]])
+vim.api.nvim_set_keymap("n", "<Leader>hp", ":SignifyHunkDiff<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<Leader>hr", ":SignifyHunkUndo<CR>", {noremap = true})
+vim.api.nvim_set_keymap("n", "<Leader>hd", ":SignifyDiff<CR>", {noremap = true})
+
 require("gitsigns").setup {
   -- signs = {
   --     add = {hl = "DiffAdd", text = "│", numhl = "GitSignsAddNr"},
@@ -13,17 +20,23 @@ require("gitsigns").setup {
       buffer = true,
       ["n ]c"] = {expr = true, '&diff ? \']c\' : \'<cmd>lua require"gitsigns".next_hunk()<CR>\''},
       ["n [c"] = {expr = true, '&diff ? \'[c\' : \'<cmd>lua require"gitsigns".prev_hunk()<CR>\''},
-      ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-      ["n <leader>hu"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-      ["n <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-      ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-      ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line()<CR>'
   },
   watch_gitdir = {
       interval = 100
   },
   sign_priority = 5,
-  status_formatter = nil -- Use default
+  status_formatter = nil, -- Use default
+  on_attach = function(bufnr)
+    local function map(mode, l, r, opts)
+      opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
+      vim.api.nvim_buf_set_keymap(bufnr, mode, l, r, opts)
+    end
+    map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    map('n', '<leader>hb', '<cmd>lua require"gitsigns".blame_line{full=true}<CR>')
+    map('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
+    map('n', '<leader>ht', '<cmd>Gitsigns toggle_current_line_blame<CR>')
+    map("n", "<Leader>hd", ":DiffviewOpen<CR>")
+  end,
 }
 
 local diffview = require'diffview.config'.diffview_callback
@@ -62,4 +75,4 @@ require'diffview'.setup {
     }
   }
 }
-vim.api.nvim_set_keymap("n", "<Leader>hd", ":DiffviewOpen<CR>", {noremap=true})
+

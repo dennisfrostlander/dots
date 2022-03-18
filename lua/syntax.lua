@@ -1,5 +1,11 @@
-vim.cmd "syntax enable"
-vim.cmd "syntax on"
+vim.cmd "syntax manual"
+
+vim.cmd([[
+augroup syntax
+  autocmd!
+  au BufEnter *.html set syntax=ON
+augroup END
+]])
 
 local ts_config = require("nvim-treesitter.configs")
 ts_config.setup {
@@ -15,7 +21,7 @@ ts_config.setup {
   },
   highlight = {
     enable = true,
-    disable = { "html", "lua" },
+    disable = { "html" },
     -- use_languagetree = true
     custom_captures = {
       ["gmacros"] = "gmacros",

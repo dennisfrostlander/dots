@@ -149,7 +149,7 @@ require("lsp_signature").setup({
   floating_window = true,
   fix_pos = true,
   toggle_key = "<C-k>"
-}, bufnr)
+})
 
 local saga = require("lspsaga")
 saga.init_lsp_saga({

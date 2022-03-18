@@ -20,18 +20,37 @@ require("telescope").setup {
     initial_mode = "insert",
     selection_strategy = "reset",
     sorting_strategy = "descending",
-    layout_strategy = "horizontal",
+    layout_strategy = "vertical",
     file_sorter = require('telescope.sorters').get_fzy_sorter,
     file_ignore_patterns = {},
     generic_sorter = require"telescope.sorters".get_generic_fuzzy_sorter,
     winblend = 0,
     layout_config = {
-      horizontal = {mirror = false, preview_width = 0.5},
-      vertical = {mirror = false},
       width = 0.75,
       prompt_position = "bottom",
-      preview_cutoff = 120,
     },
+    path_display = function(opts, path)
+      -- Do common substitutions
+      path = path:gsub("^/google/src/cloud/[^/]+/[^/]+/google3/", "google3/", 1)
+      path = path:gsub("^google3/java/com/google/", "g3/j/c/g/", 1)
+      path = path:gsub("^google3/javatests/com/google/", "g3/jt/c/g/", 1)
+      path = path:gsub("^google3/third_party/", "g3/3rdp/", 1)
+      path = path:gsub("^google3/", "g3/", 1)
+      -- Do truncation. This allows us to combine our custom display formatter
+      -- with the built-in truncation.
+      -- `truncate` handler in transform_path memoizes computed truncation length in opts.__length.
+      -- Here we are manually propagating this value between new_opts and opts.
+      -- We can make this cleaner and more complicated using metatables :)
+      local new_opts = {
+        path_display = {
+          truncate = true,
+        },
+        __length = opts.__length,
+      }
+      path = require('telescope.utils').transform_path(new_opts, path)
+      opts.__length = new_opts.__length
+      return path
+    end,
     border = {},
     borderchars = {"─", "│", "─", "│", "╭", "╮", "╯", "╰"},
     use_less = true,

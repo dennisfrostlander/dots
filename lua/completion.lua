@@ -14,7 +14,7 @@ cmp.setup({
   mapping = {
     ['<C-y>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
     ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
     ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
   },
@@ -22,7 +22,7 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
     { name = 'buffer',
-      options = {
+      option = {
         get_bufnrs = function()
           local bufs = {}
           for _, win in ipairs(vim.api.nvim_list_wins()) do
@@ -35,10 +35,6 @@ cmp.setup({
     { name = 'path' },
     { name = 'spell' },
   },
-  -- completion = {
-  --   -- Preselect
-  --   completeopt = 'menu,menuone,noinsert',
-  -- },
   formatting = {
     format = lspkind.cmp_format({
       mode = 'symbol_text',

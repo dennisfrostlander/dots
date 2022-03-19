@@ -11,6 +11,7 @@ local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.gcl = {
   install_info = {
     url = "https://github.com/dennisfrostlander/tree-sitter-gcl", -- local path or git repo
+    -- url = "~/projects/tree-sitter-gcl", -- local path or git repo
     files = {"src/parser.c", "src/scanner.cc"},
     branch = "main", -- default branch in case of git repo if different from master
     generate_requires_npm = false, -- if stand-alone parser without npm dependencies

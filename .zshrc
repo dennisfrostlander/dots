@@ -73,8 +73,8 @@ bindkey '^n' run-again
 bindkey "^o" up-line-or-search
 bindkey "^b" down-line-or-search
 
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
 
 setopt    append_history     #Append history to the history file (no overwriting)
 setopt    share_history      #Share history across terminals

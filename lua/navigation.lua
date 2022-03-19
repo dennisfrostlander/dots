@@ -97,37 +97,37 @@ end
 -- mappings
 local opt = {noremap = true, silent = true}
 vim.api.nvim_set_keymap("n", "<Leader><Space>",
-  [[<Cmd>lua require('navigation_piper').oldfiles()<CR>]],
+  [[<cmd>lua require('navigation_piper').oldfiles()<CR>]],
   opt)
 vim.api.nvim_set_keymap("n", "<Leader>m",
   [[:lua find_files()<CR>]],
   opt)
 vim.api.nvim_set_keymap("n", "<Leader>fp",
-  [[<Cmd>lua require('telescope').extensions.media_files.media_files()<CR>]],
+  [[<cmd>lua require('telescope').extensions.media_files.media_files()<CR>]],
   opt)
 vim.api.nvim_set_keymap("n", "<Leader>fb",
-  [[<Cmd>lua require('telescope.builtin').buffers()<CR>]],
+  [[<cmd>lua require('telescope.builtin').buffers()<CR>]],
   opt)
 vim.api.nvim_set_keymap("n", "<Leader>fh",
-  [[<Cmd>lua require('telescope.builtin').help_tags()<CR>]],
+  [[<cmd>lua require('telescope.builtin').help_tags()<CR>]],
   opt)
 vim.api.nvim_set_keymap("n", "<Leader>fg",
   [[:lua live_grep()<CR>]],
   opt)
 vim.api.nvim_set_keymap("n", "<Leader>fd",
-  [[<Cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>]],
+  [[<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>]],
   opt)
 vim.api.nvim_set_keymap("n", "<Leader>fs",
-  [[<Cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
+  [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]],
   opt)
 
 vim.api.nvim_set_keymap("n", "<Leader>fw",
-  [[<Cmd>lua require('navigation_piper').find_workspaces()<CR>]],
+  [[<cmd>lua require('navigation_piper').find_workspaces()<CR>]],
   opt)
 
 vim.api.nvim_set_keymap("n", "gr",
-  [[<Cmd>lua require('telescope.builtin').lsp_references()<CR>]],
+  [[<cmd>lua require('telescope.builtin').lsp_references()<CR>]],
   opt)
--- vim.api.nvim_set_keymap("n", "<Leader>j",
---                         [[<Cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]],
---                         opt)
+vim.api.nvim_set_keymap("n", "<Leader>fq",
+  [[<cmd>lua require('telescope').extensions.codesearch.find_query{}<CR>]],
+  opt)

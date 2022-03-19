@@ -17,6 +17,9 @@ ts_config.setup {
     "bash",
     "cpp",
     "rust",
+    "java",
+    "python",
+    "go",
     "lua"
   },
   highlight = {

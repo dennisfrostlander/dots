@@ -1,5 +1,11 @@
 vim.cmd [[packadd nvim-web-devicons]]
 
+require("dressing").setup({
+  input = {
+    winblend = 0
+  },
+})
+
 require("lualine").setup{
   options = {
     theme = "nord"

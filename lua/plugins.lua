@@ -20,6 +20,7 @@ return require("packer").startup(
         use {"norcalli/nvim-colorizer.lua"}
         use {"kyazdani42/nvim-web-devicons"}
         use {"lukas-reineke/indent-blankline.nvim"}
+        use {"stevearc/dressing.nvim"}
 
         use {"lewis6991/gitsigns.nvim"}
         use {"mhinz/vim-signify"}
@@ -48,8 +49,6 @@ return require("packer").startup(
         use {"f3fora/cmp-spell"}
         use {"hrsh7th/cmp-path"}
         use {"jose-elias-alvarez/nvim-lsp-ts-utils"}
-        -- Temp fix for code actions in nvim 0.5.1
-        use {"rinx/lspsaga.nvim"}
         use {"ray-x/lsp_signature.nvim"}
         use {"sbdchd/neoformat"}
         use {"folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }

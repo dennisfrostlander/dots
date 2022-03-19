@@ -19,14 +19,16 @@ map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 -- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 
 -- map("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
--- map("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
--- map("i", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 -- map("n", "<Leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
 -- map("n", "<Leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
 -- map("n", "<Leader>wl",
 --     "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
 -- -- --     opts)
--- map("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+map("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+map("n", "<Leader>j", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+map("v", "<Leader>j", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
+map("n", "K", ":lua vim.lsp.buf.signature_help()<CR>", opts)
+
 map("n", "[g", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 map("n", "]g", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
 map("n", "<Leader>k", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
@@ -151,17 +153,6 @@ require("lsp_signature").setup({
   toggle_key = "<C-k>"
 })
 
-local saga = require("lspsaga")
-saga.init_lsp_saga({
- use_saga_diagnostic_sign = false,
- code_action_icon = '',
-})
-
-map("n", "<Leader>rn", ":Lspsaga rename<CR>", opts)
-map("n", "<Leader>j", ":Lspsaga code_action<CR>", opts)
-map("v", "<Leader>j", ":Lspsaga range_code_action<CR>", opts)
-
-map("n", "K", ":lua vim.lsp.buf.signature_help()<CR>", opts)
 -- map("n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
 -- map("n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
 

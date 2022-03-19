@@ -48,5 +48,7 @@ hi Normal guibg=NONE ctermbg=NONE
 hi CursorLine guibg=NONE
 hi SignColumn guibg=NONE
 hi VertSplit guibg=NONE
+
+hi! link FloatTitle Nord13
 ]]
 

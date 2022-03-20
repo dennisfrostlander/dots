@@ -1,20 +1,53 @@
 local M = {}
 local workspace_dirs
 
+local function stat(filename)
+  local s = vim.loop.fs_stat(filename)
+  if not s then
+    return nil
+  end
+  return s.type
+end
+
+local path_sep = vim.loop.os_uname().sysname == "Windows" and "\\" or "/"
+local function dirname(filepath)
+  local result = filepath:gsub(path_sep.."([^"..path_sep.."]+)$", function()
+    return ""
+  end)
+  return result
+end
+
+local function get_dirs()
+  if workspace_dirs then
+    return workspace_dirs
+  end
+  workspace_dirs = {}
+  for _,arg in ipairs(vim.v.argv) do
+    local s = stat(arg)
+    if s == "directory" then
+      table.insert(workspace_dirs, arg)
+    elseif s == "file" then
+      table.insert(workspace_dirs, dirname(arg))
+    end
+  end
+  if table.getn(workspace_dirs) == 0 then
+    table.insert(workspace_dirs, vim.fn.getcwd())
+  end
+  return workspace_dirs
+end
+
 M.setup = function(dirs)
   workspace_dirs = dirs
 end
 
 M.get_workspace_dirs = function()
-  if not workspace_dirs then
-    return {vim.env.PWD}
-  end
-  return workspace_dirs
+  return get_dirs()
 end
 
 M.get_relative_workspace_dirs = function()
+  local dirs = get_dirs()
   local reldirs = {}
-  for i,p in ipairs(workspace_dirs) do
+  for _,p in ipairs(dirs) do
     table.insert(reldirs, vim.fn.fnamemodify(vim.fn.expand(p), ":."))
   end
   return reldirs

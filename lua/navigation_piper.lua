@@ -9,7 +9,7 @@ local M = {}
 local user = vim.fn.expand("$USER")
 local ws_pattern = "(/google/src/cloud/"..user.."/)([%a%d]+)(.*)"
 
-function get_workspace_dir(ws)
+local function get_workspace_dir(ws)
   return "/google/src/cloud/"..user.."/"..ws
 end
 

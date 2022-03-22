@@ -25,6 +25,12 @@ vim.api.nvim_set_keymap("n", "<Leader>*",
   [[(&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"]],
   {expr = true})
 
+-- lowercase marks behave like uppercase
+vim.api.nvim_set_keymap("n", "'", [["'".toupper(nr2char(getchar()))]],
+  {noremap = true, expr = true});
+vim.api.nvim_set_keymap("n", "m", [["m".toupper(nr2char(getchar()))]],
+  {noremap = true, expr = true});
+
 vim.g.better_whitespace_enabled = false
 vim.g.strip_whitespace_on_save = true
 vim.g.strip_whitespace_confirm = false

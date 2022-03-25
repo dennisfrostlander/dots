@@ -39,7 +39,7 @@ git_prompt_info() {
   if ! [[ -z ${ws} ]]; then
     YELLOW='\033[0;33m'
     NC='\033[0m'
-    echo "(${YELLOW}${ws}${NC}) "
+    echo "${YELLOW}[${ws}]${NC} "
   fi
 }
 
@@ -115,7 +115,6 @@ alias nb="npm run build"
 alias vim="nvim"
 alias vimdiff='nvim -d'
 alias e='nvim'
-alias en='nvim -u ~/.vimrc_napa'
 # Navigation
 alias gt="cd ~/projects/travelhub-client"
 alias gtb="cd ~/projects/travelhub-build"
@@ -153,7 +152,7 @@ fi
 unalias l
 l() {
   tmp="$(mktemp)"
-  /usr/local/bin/lf --last-dir-path="$tmp" "$@"
+  lf --last-dir-path="$tmp" "$@"
   if [ -f "$tmp" ]; then
     dir="$(cat "$tmp")"
     rm -f "$tmp"

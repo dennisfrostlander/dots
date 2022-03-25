@@ -20,38 +20,26 @@ export EDITOR=nvim;
 export ANDROID_SDK_ROOT=~/Library/Android/sdk;
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_281.jdk/Contents/Home;
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+source ~/.antigen.zsh
+antigen use oh-my-zsh
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
 
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  # npm
-  # git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-)
+THEME=robbyrussell
+antigen list | grep $THEME; if [ $? -ne 0 ]; then antigen theme $THEME; fi
 
-DISABLE_AUTO_UPDATE="true"
-source ~/.oh-my-zsh/oh-my-zsh.sh
+antigen apply
 
 # User configuration
 [ -f /etc/bash_completion.d/g4d ] && source /etc/bash_completion.d/g4d
 [ -f /etc/bash_completion.d/hgd ] && source /etc/bash_completion.d/hgd
 
-prompt_hg() {}
 git_prompt_info() {
   ws=$(pwd | sed -n -E -e "s/\/google\/src\/cloud\/${USER}\/(.*)\/.*/\1/p")
   if ! [[ -z ${ws} ]]; then
     YELLOW='\033[0;33m'
     NC='\033[0m'
-    echo "(${ws}) "
+    echo "(${YELLOW}${ws}${NC}) "
   fi
 }
 
@@ -142,62 +130,12 @@ zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#696969"
-
 rsync_watch() {
   rsync --copy-links --progress --recursive "$1" "$2"
   while inotifywait -r -e create,delete,modify "$(p4 g4d)/$1";
     do rsync --copy-links --progress --recursive "$1" "$2"
     done
   }
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# bindkey -v
-
-function set-title-precmd() {
-  printf "\e]2;%s\a" "${PWD/#$HOME/~}"
-}
-
-function set-title-preexec() {
-  printf "\e]2;%s\a" "$1"
-}
-
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd set-title-precmd
-add-zsh-hook preexec set-title-preexec
-# function zle-line-init zle-keymap-select {
-   #VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
-   #RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
-   #zle reset-prompt
-# }
-
-# zle -N zle-line-init
-# zle -N zle-keymap-select
-
-# export KEYTIMEOUT=1
 
 [ -f ~/.zshrc_icons ] && source ~/.zshrc_icons
 (command -v gdircolors &> /dev/null) && eval $(gdircolors ~/.dir_colors)

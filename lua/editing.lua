@@ -47,3 +47,10 @@ vim.g.indent_blankline_show_first_indent_level = false
 vim.g.vsnip_snippet_dir = require("utils").config_dir_path() .. "/snippets"
 
 require("colorizer").setup()
+
+vim.cmd([[
+augroup auto_insert
+  autocmd!
+  au FileType gitcommit,hgcommit startinsert
+augroup END
+]])

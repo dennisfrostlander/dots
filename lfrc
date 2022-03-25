@@ -1,6 +1,7 @@
 set icons
 set hidden
 set info size
+set previewer '~/.config/lf/previewer.sh'
 
 cmd trash $IFS="`printf '\n\t'`"; trash $fx
 map D trash

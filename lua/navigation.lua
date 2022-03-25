@@ -97,7 +97,7 @@ end
 -- mappings
 local opt = {noremap = true, silent = true}
 vim.api.nvim_set_keymap("n", "<Leader><Space>",
-  [[<cmd>lua require('navigation_piper').oldfiles()<CR>]],
+  [[<cmd>lua require('navigation_piper').recent_files()<CR>]],
   opt)
 vim.api.nvim_set_keymap("n", "<Leader>m",
   [[:lua find_files()<CR>]],
@@ -131,3 +131,4 @@ vim.api.nvim_set_keymap("n", "gr",
 vim.api.nvim_set_keymap("n", "<Leader>fq",
   [[<cmd>lua require('telescope').extensions.codesearch.find_query{}<CR>]],
   opt)
+

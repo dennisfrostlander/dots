@@ -2,8 +2,8 @@ vim.cmd "syntax manual"
 
 vim.cmd([[
 augroup syntax
-  autocmd!
-  au FileType html,yaml,gitcommit,hgcommit,proto,sh,zsh,tmux setlocal syntax=ON
+  au!
+  au FileType html,yaml,gitcommit,hgcommit,proto,bzl,sh,zsh,tmux,conf,markdown setlocal syntax=ON
 augroup END
 ]])
 
@@ -33,6 +33,7 @@ ts_config.setup {
     "python",
     "go",
     "gcl",
+    "json",
     "lua"
   },
   highlight = {

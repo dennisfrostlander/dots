@@ -18,7 +18,26 @@ local function parse_workspace_path(p)
   return ws, prefix, suffix
 end
 
-M.oldfiles = function(opts)
+local function add_recent_file(cur_ws, results, file_path, opts)
+  if cur_ws then
+    local ws, prefix, suffix = parse_workspace_path(file_path)
+    if ws and ws ~= cur_ws then
+      file_path = prefix .. cur_ws .. suffix
+    end
+  end
+  local ignored = false
+  if vim.tbl_contains(results, file_path) then
+    ignored = true
+  end
+  if opts.ignore_pattern and string.find(file_path, opts.ignore_pattern) == 1 then
+    ignored = true
+  end
+  if not ignored then
+    table.insert(results, file_path)
+  end
+end
+
+M.recent_files = function(opts)
   opts = opts or {}
   opts.ignore_pattern = opts.ignore_pattern or "/google/obj/workspace/"
   local current_buffer = vim.api.nvim_get_current_buf()
@@ -27,22 +46,16 @@ M.oldfiles = function(opts)
   local cur_ws = parse_workspace_path(vim.fn.getcwd())
 
   for _, file in ipairs(vim.v.oldfiles) do
-    if vim.loop.fs_stat(file) and file ~= current_file then
-      if cur_ws then
-        local ws, prefix, suffix = parse_workspace_path(file)
-        if ws and ws ~= cur_ws then
-          file = prefix .. cur_ws .. suffix
-        end
-      end
-      local ignored = false
-      if vim.tbl_contains(results, file) then
-        ignored = true
-      end
-      if opts.ignore_pattern and string.find(file, opts.ignore_pattern) == 1 then
-        ignored = true
-      end
-      if not ignored then
-        table.insert(results, file)
+    if file ~= current_file then
+      add_recent_file(cur_ws, results, file, opts)
+    end
+  end
+  local buffers = vim.api.nvim_list_bufs()
+  for _, buffer in ipairs(buffers) do
+    if vim.api.nvim_buf_is_loaded(buffer) then
+      local file = vim.api.nvim_buf_get_name(buffer)
+      if file ~= current_file then
+        add_recent_file(cur_ws, results, file, opts)
       end
     end
   end
@@ -53,7 +66,7 @@ M.oldfiles = function(opts)
       results = results,
       entry_maker = opts.entry_maker or make_entry.gen_from_file(opts),
     },
-    sorter = conf.file_sorter(opts),
+    sorter = conf.generic_sorter(opts),
     previewer = conf.file_previewer(opts),
   }):find()
 end

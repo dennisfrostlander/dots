@@ -34,6 +34,11 @@ vim.api.nvim_set_keymap("n", "<leader>w", ":wa<CR>", {})
 vim.api.nvim_set_keymap("n", "<Leader>q", ":q<CR>", {})
 vim.api.nvim_set_keymap("n", "Q", ":q!<CR>", {})
 
+vim.api.nvim_set_keymap("n", "<Leader>yf", [[:let @+ = fnamemodify(expand("%"), ":~:.")<CR>]],
+  {noremap = true})
+vim.api.nvim_set_keymap("n", "<Leader>yF", [[:let @+ = expand("%:p")<CR>]],
+  {noremap = true})
+
 require('auto-session').setup({
   -- Do not show prompt at startup.
   log_level = "error"

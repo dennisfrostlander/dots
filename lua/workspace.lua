@@ -1,4 +1,6 @@
+local utils = require("utils")
 local M = {}
+
 local workspace_dirs
 
 local function stat(filename)
@@ -7,14 +9,6 @@ local function stat(filename)
     return nil
   end
   return s.type
-end
-
-local path_sep = vim.loop.os_uname().sysname == "Windows" and "\\" or "/"
-local function dirname(filepath)
-  local result = filepath:gsub(path_sep.."([^"..path_sep.."]+)$", function()
-    return ""
-  end)
-  return result
 end
 
 local function get_dirs()
@@ -27,7 +21,7 @@ local function get_dirs()
     if s == "directory" then
       table.insert(workspace_dirs, arg)
     elseif s == "file" then
-      table.insert(workspace_dirs, dirname(arg))
+      table.insert(workspace_dirs, utils.dirname(arg))
     end
   end
   if table.getn(workspace_dirs) == 0 then

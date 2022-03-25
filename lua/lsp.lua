@@ -75,7 +75,7 @@ local configs = require('lspconfig.configs')
 configs.ciderlsp = {
  default_config = {
    cmd = {'/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses'};
-   filetypes = {'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl', 'sql', 'gcl'};
+   filetypes = {'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl', 'sql', 'gcl', 'markdown'};
    root_dir = nvim_lsp.util.root_pattern('BUILD');
    settings = {};
  }

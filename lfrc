@@ -10,7 +10,7 @@ cmd addDir %{{
   printf "Directory name or path: "
   read ans
   mkdir -p $ans
-  lf -remote "send $id load"
+  lf -remote "send $id reload"
   lf -remote "send $id select $ans"
 }}
 map A addDir
@@ -19,7 +19,7 @@ cmd addFile %{{
   printf "Filename: "
   read ans
   touch $ans
-  lf -remote "send $id load"
+  lf -remote "send $id reload"
   lf -remote "send $id select $ans"
 }}
 map a addFile
@@ -32,7 +32,7 @@ cmd zip ${{
   cp -r $fx $zipfolder
   zip -r $zipfolder.zip $zipfolder
   rm -rf $zipfolder
-  lf -remote "send $id load"
+  lf -remote "send $id reload"
   lf -remote "send $id unselect"
   lf -remote "send $id select $zipfolder.zip"
 }}
@@ -50,7 +50,7 @@ cmd extract ${{
     *.rar) unrar x $f;;
     *.7z) 7z x $f;;
   esac
-  lf -remote "send $id load"
+  lf -remote "send $id reload"
   lf -remote "send $id select $extfolder"
 }}
 map X extract

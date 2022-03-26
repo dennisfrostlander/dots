@@ -14,7 +14,7 @@ local opts = {noremap = true}
 -- Mappings.
 map("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
 map("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+-- map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 -- map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 -- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 

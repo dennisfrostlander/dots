@@ -1,9 +1,0 @@
-{
-  "abls::OkStatus": {
-    "prefix": ["ok"],
-    "body": [
-      "absl::OkStatus()"
-    ],
-    "description": "absl::OkStatus()"
-  }
-}

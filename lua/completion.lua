@@ -3,24 +3,58 @@ vim.cmd [[packadd nvim-lspconfig]]
 vim.o.completeopt = "menuone,noinsert,preview,noselect"
 vim.o.pumheight = 30
 
+local utils = require("utils")
+local luasnip = require("luasnip")
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_lua").lazy_load({
+  paths = {
+    utils.config_dir_path() .. "/snippets",
+  }
+})
+
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 local lspkind = require('lspkind')
 local cmp = require('cmp')
 cmp.setup({
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
-    end,
-  },
   mapping = {
     ['<C-y>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
     ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
     ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif cmp.visible() then
+        cmp.select_next_item()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      elseif cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+  },
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'vsnip' },
+    { name = 'luasnip' },
     { name = 'buffer',
       option = {
         get_bufnrs = function()
@@ -45,7 +79,7 @@ cmp.setup({
           buffer = "[buf]",
           nvim_lsp = "[lsp]",
           path = "[path]",
-          vsnip = "[snip]",
+          luasnip = "[snip]",
         })[entry.source.name]
         return vim_item
       end
@@ -59,9 +93,5 @@ require("nvim-autopairs").setup({
 -- local cmp = require('cmp')
 -- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 
-vim.api.nvim_set_keymap("i", "<C-l>", "vsnip#expandable()  ? '<Plug>(vsnip-expand)' : '<C-l>'",
-  {expr=true})
-vim.api.nvim_set_keymap("i", "<Tab>", "vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>'",
-  {expr=true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>'",
+vim.api.nvim_set_keymap("i", "<C-l>", "luasnip#expandable() ? '<Plug>luasnip-expand-snippet' : '<C-l>'",
   {expr=true})

@@ -32,8 +32,7 @@ return require("packer").startup(
         use {"tpope/vim-commentary"}
         use {"windwp/nvim-autopairs"}
         use {"alvan/vim-closetag"}
-        use {"hrsh7th/vim-vsnip"}
-        use {"hrsh7th/vim-vsnip-integ"}
+        use {"L3MON4D3/LuaSnip"}
         use {"rafamadriz/friendly-snippets"}
         use {"ntpeters/vim-better-whitespace"}
         use {"stefandtw/quickfix-reflector.vim"}
@@ -45,9 +44,9 @@ return require("packer").startup(
         use {"hrsh7th/cmp-nvim-lsp"}
         use {"hrsh7th/cmp-buffer"}
         use {"hrsh7th/nvim-cmp"}
-        use {"hrsh7th/cmp-vsnip"}
         use {"f3fora/cmp-spell"}
         use {"hrsh7th/cmp-path"}
+        use {"saadparwaiz1/cmp_luasnip"}
         use {"jose-elias-alvarez/nvim-lsp-ts-utils"}
         use {"ray-x/lsp_signature.nvim"}
         use {"sbdchd/neoformat"}

@@ -99,7 +99,7 @@ nvim_lsp.ciderlsp.setup{
 
     local opts = { noremap = true, silent = true }
     -- See `:help vim.lsp.*` for documentation on any of the below functions.
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, "n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
 
     -- vim.api.nvim_command("augroup LSP")
     -- vim.api.nvim_command("autocmd!")

@@ -43,3 +43,10 @@ require('auto-session').setup({
   -- Do not show prompt at startup.
   log_level = "error"
 })
+
+vim.cmd([[
+augroup general
+  au!
+  au FileType qf wincmd J
+augroup END
+]])

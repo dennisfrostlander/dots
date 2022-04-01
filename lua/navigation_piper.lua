@@ -93,7 +93,8 @@ M.find_workspaces = function(opts)
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry()
-        vim.cmd("cd " .. get_workspace_dir(selection[1]))
+        local dir = get_workspace_dir(selection[1]) .. "/google3"
+        vim.cmd("cd " .. dir)
       end)
       return true
     end,

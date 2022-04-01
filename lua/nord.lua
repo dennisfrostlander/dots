@@ -30,13 +30,10 @@ hi! link TSVariableBuiltin Keyword
 hi! link TSBoolean Keyword
 hi! link TSConstructor TSFunction
 
-hi link gmacros Nord7
-hi link gmacrosSubtle CommentItalic
-hi link gmacroTestParameter Nord4
-hi link cppExtraKeywords TSType
 hi link cppNamespaceDefinition TSType
 hi link cppFunctionDeclaration TSKeyword
 hi link cppQualifiedIdentifier TSType
+hi link cppExtraKeywords TSKeyword
 
 hi! clear TSVariable
 

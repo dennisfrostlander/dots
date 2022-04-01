@@ -4,12 +4,12 @@
 )
 
 ((identifier) @gmacrosSubtle
- (.match? @gmacrosSubtle "ASSIGN_OR_RETURN|RETURN_IF_ERROR|Q?CHECK|ABSL_PREDICT|RET_CHECK|V?LOG")
+ (.match? @gmacrosSubtle "ASSIGN_OR_RETURN|RETURN_IF_ERROR|Q?CHECK|ABSL_PREDICT|RET_CHECK(_OK|_FAIL)?|V?LOG")
  (set! "priority" 110)
 )
 
 ((primitive_type) @cppExtraKeywords
- (.eq? @cppExtraKeywords "void")
+ (.match? @cppExtraKeywords "bool")
  (set! "priority" 110)
 )
 

@@ -10,6 +10,7 @@ export PATH="/Users/frostlander/.nvm/versions/node/v12.22.6/bin:$PATH"
 export PATH="/usr/local/opt/curl/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/projects/lua-language-server/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="/usr/local/opt/ruby@2.7/bin:$PATH"
@@ -37,9 +38,9 @@ antigen apply
 git_prompt_info() {
   ws=$(pwd | sed -n -E -e "s/\/google\/src\/cloud\/${USER}\/(.*)\/.*/\1/p")
   if ! [[ -z ${ws} ]]; then
-    YELLOW='\033[0;33m'
+    BLUE='\033[0;36m'
     NC='\033[0m'
-    echo "${YELLOW}[${ws}]${NC} "
+    echo "${BLUE}[${ws}]${NC} "
   fi
 }
 
@@ -149,7 +150,7 @@ fi
 # if [ -f '/Users/frostlander/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/frostlander/google-cloud-sdk/completion.zsh.inc'; fi
 
 # After lf exits, cd to last visited dir.
-unalias l
+[[ $(alias l) ]] && unalias l
 l() {
   tmp="$(mktemp)"
   lf --last-dir-path="$tmp" "$@"

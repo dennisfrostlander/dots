@@ -6,8 +6,8 @@ require("undo")
 
 require("syntax")
 require("lsp")
-require("lang")
 require("completion")
+require("format")
 
 require("navigation")
 require("vcs")

@@ -3,6 +3,7 @@ local s = ls.snippet
 local f = ls.function_node
 local t = ls.text_node
 local i = ls.insert_node
+local fmt = require("luasnip.extras.fmt").fmt
 
 local function get_header_def()
   local current_buffer = vim.api.nvim_get_current_buf()
@@ -11,31 +12,19 @@ local function get_header_def()
   local result = current_file:sub(start_index + 1)
   result = result:upper()
   result = result:gsub("%W", "_")
-  return result.."_"
+  return result .. "_"
 end
 
 return {
-  s("ok", {
-    t("absl::OkStatus()"),
-  }),
+  s("up", fmt("std::unique_ptr<{}> {}", {i(1), i(0)})),
+  s("ok", {t("absl::OkStatus()")}),
   s("once", {
     f(function()
       local def = get_header_def()
-      return {
-        "#ifndef " .. def,
-        "#define " .. def,
-        "",
-        "",
-      }
-    end),
-    i(0),
-    f(function()
+      return {"#ifndef " .. def, "#define " .. def, "", ""}
+    end), i(0), f(function()
       local def = get_header_def()
-      return {
-        "",
-        "",
-        "#endif  // " .. def
-      }
-    end),
-  }),
+      return {"", "", "#endif  // " .. def}
+    end)
+  })
 }, nil

@@ -49,7 +49,7 @@ return require("packer").startup(
         use {"saadparwaiz1/cmp_luasnip"}
         use {"jose-elias-alvarez/nvim-lsp-ts-utils"}
         use {"ray-x/lsp_signature.nvim"}
-        use {"sbdchd/neoformat"}
+        use {"mhartington/formatter.nvim"}
         use {"folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" }
 
         use {"nvim-telescope/telescope.nvim"}

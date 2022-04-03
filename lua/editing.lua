@@ -10,26 +10,26 @@ vim.api.nvim_set_keymap("n", "]q", ":cnext<CR>", {})
 vim.api.nvim_set_keymap("v", "y", "ygv<ESC>", {})
 
 -- Move the selected region.
-vim.api.nvim_set_keymap("v", "J", ":m '>+1<CR>gv=gv", {noremap=true})
-vim.api.nvim_set_keymap("v", "K", ":m '<-2<CR>gv=gv", {noremap=true})
+vim.api.nvim_set_keymap("v", "J", ":m '>+1<CR>gv=gv", {noremap = true})
+vim.api.nvim_set_keymap("v", "K", ":m '<-2<CR>gv=gv", {noremap = true})
 
 -- Keep the line centered while.
-vim.api.nvim_set_keymap("n", "n", "nzzzv", {noremap=true})
-vim.api.nvim_set_keymap("n", "N", "Nzzzv", {noremap=true})
-vim.api.nvim_set_keymap("n", "J", "mzJ`z", {noremap=true})
+vim.api.nvim_set_keymap("n", "n", "nzzzv", {noremap = true})
+vim.api.nvim_set_keymap("n", "N", "Nzzzv", {noremap = true})
+vim.api.nvim_set_keymap("n", "J", "mzJ`z", {noremap = true})
 
 vim.api.nvim_set_keymap("n", "*",
-  [[:let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>]],
-  {})
+                        [[:let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>]],
+                        {})
 vim.api.nvim_set_keymap("n", "<Leader>*",
-  [[(&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"]],
-  {expr = true})
+                        [[(&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"]],
+                        {expr = true})
 
 -- lowercase marks behave like uppercase
 vim.api.nvim_set_keymap("n", "'", [["'".toupper(nr2char(getchar()))]],
-  {noremap = true, expr = true});
+                        {noremap = true, expr = true});
 vim.api.nvim_set_keymap("n", "m", [["m".toupper(nr2char(getchar()))]],
-  {noremap = true, expr = true});
+                        {noremap = true, expr = true});
 
 vim.g.better_whitespace_enabled = false
 vim.g.strip_whitespace_on_save = true

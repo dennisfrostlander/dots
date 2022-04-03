@@ -26,7 +26,6 @@ return require("packer").startup(
         use {"mhinz/vim-signify"}
         use {"sindrets/diffview.nvim"}
         use {"christoomey/vim-tmux-navigator"}
-        use {"rmagatti/auto-session"}
 
         use {"tpope/vim-surround"}
         use {"tpope/vim-commentary"}

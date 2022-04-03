@@ -3,7 +3,7 @@ vim.cmd "syntax manual"
 vim.cmd([[
 augroup syntax
   au!
-  au FileType html,yaml,gitcommit,hgcommit,proto,bzl,sh,zsh,tmux,conf,markdown setlocal syntax=ON
+  au FileType html,yaml,gitcommit,hgcommit,proto,bzl,sh,zsh,tmux,conf,markdown,vim,help setlocal syntax=ON
 augroup END
 ]])
 
@@ -41,14 +41,13 @@ ts_config.setup {
     disable = { "html" },
     -- use_languagetree = true
     custom_captures = {
-      ["gmacros"] = "Nord7",
-      -- ["gmacrosSubtle"] = "CommentItalic",
-      ["gmacroTest"] = "Nord7",
-      ["gmacroTestParameter"] = "Identifier",
-      -- ["cppNamespaceDefinition"] = "cppNamespaceDefinition",
-      -- ["cppFunctionDeclaration"] = "cppFunctionDeclaration",
-      -- ["cppQualifiedIdentifier"] = "Type",
-      -- ["cppExtraKeywords"] = "Keyword",
+      ["cppConstant"] = "Nord7",
+      ["gmacrosSubtle"] = "CommentItalic",
+      ["cppNamespaceDefinition"] = "Identifier",
+      ["cppNamespaceDefinitionName"] = "Identifier",
+      ["cppFunctionDeclaration"] = "TSKeyword",
+      ["cppQualifiedIdentifier"] = "TSType",
+      ["cppExtraKeywords"] = "TSKeyword",
     },
   },
   playground = {

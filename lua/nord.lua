@@ -24,17 +24,12 @@ hi CommentItalic guifg=#7b88a1 gui=italic
 
 hi! link TSType Nord8
 hi! link TSNamespace TSKeyword
-hi! TSParameter gui=italic
-
+hi! link TSConstant Nord15
 hi! link TSVariableBuiltin Keyword
 hi! link TSBoolean Keyword
 hi! link TSConstructor TSFunction
 
-hi link cppNamespaceDefinition TSType
-hi link cppFunctionDeclaration TSKeyword
-hi link cppQualifiedIdentifier TSType
-hi link cppExtraKeywords TSKeyword
-
+hi! TSParameter gui=italic
 hi! clear TSVariable
 
 hi nCursor guibg=white

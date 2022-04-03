@@ -39,11 +39,6 @@ vim.api.nvim_set_keymap("n", "<Leader>yf", [[:let @+ = fnamemodify(expand("%"), 
 vim.api.nvim_set_keymap("n", "<Leader>yF", [[:let @+ = expand("%:p")<CR>]],
   {noremap = true})
 
-require('auto-session').setup({
-  -- Do not show prompt at startup.
-  log_level = "error"
-})
-
 vim.cmd([[
 augroup general
   au!

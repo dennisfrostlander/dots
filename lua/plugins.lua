@@ -22,6 +22,7 @@ return require("packer").startup(
         use {"lukas-reineke/indent-blankline.nvim"}
         use {"stevearc/dressing.nvim"}
 
+        use {"tpope/vim-fugitive"}
         use {"lewis6991/gitsigns.nvim"}
         use {"mhinz/vim-signify"}
         use {"sindrets/diffview.nvim"}

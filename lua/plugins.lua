@@ -29,7 +29,7 @@ return require("packer").startup(
         use {"christoomey/vim-tmux-navigator"}
 
         use {"tpope/vim-surround"}
-        use {"tpope/vim-commentary"}
+        use {"numToStr/Comment.nvim"}
         use {"windwp/nvim-autopairs"}
         use {"alvan/vim-closetag"}
         use {"L3MON4D3/LuaSnip"}

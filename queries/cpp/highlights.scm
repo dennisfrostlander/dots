@@ -5,7 +5,7 @@
 
 ((identifier) @gmacrosSubtle
  (.match? @gmacrosSubtle "ASSIGN_OR_RETURN|RETURN_IF_ERROR|Q?CHECK|ABSL_PREDICT|RET_CHECK(_OK|_FAIL)?|V?LOG")
- (set! "priority" 110)
+ (#set! "priority" 120)
 )
 
 ((primitive_type) @cppExtraKeywords

@@ -42,5 +42,22 @@ hi SignColumn guibg=NONE
 hi VertSplit guibg=NONE
 
 hi! link FloatTitle Nord13
+
+" gray
+highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#4C566A
+" blue
+highlight! CmpItemAbbrMatch guibg=NONE guifg=#81A1C1
+highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#81A1C1
+" light blue
+highlight! CmpItemKindVariable guibg=NONE guifg=#88C0D0
+highlight! CmpItemKindInterface guibg=NONE guifg=#88C0D0
+highlight! CmpItemKindText guibg=NONE guifg=#88C0D0
+" pink
+highlight! CmpItemKindFunction guibg=NONE guifg=#B48EAD
+highlight! CmpItemKindMethod guibg=NONE guifg=#B48EAD
+" front
+highlight! CmpItemKindKeyword guibg=NONE guifg=#D8DEE9
+highlight! CmpItemKindProperty guibg=NONE guifg=#D8DEE9
+highlight! CmpItemKindUnit guibg=NONE guifg=#D8DEE9
 ]]
 

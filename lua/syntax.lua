@@ -7,7 +7,7 @@ augroup syntax
 augroup END
 ]])
 
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+local parser_config = require"nvim-treesitter.parsers".get_parser_configs()
 parser_config.gcl = {
   install_info = {
     url = "https://github.com/dennisfrostlander/tree-sitter-gcl", -- local path or git repo
@@ -15,30 +15,19 @@ parser_config.gcl = {
     files = {"src/parser.c", "src/scanner.cc"},
     branch = "main", -- default branch in case of git repo if different from master
     generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-    requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
-  },
+    requires_generate_from_grammar = false -- if folder contains pre-generated src/parser.c
+  }
 }
 
 local ts_config = require("nvim-treesitter.configs")
 ts_config.setup {
   ensure_installed = {
-    "typescript",
-    "javascript",
-    "html",
-    "css",
-    "bash",
-    "cpp",
-    "rust",
-    "java",
-    "python",
-    "go",
-    "gcl",
-    "json",
-    "lua"
+    "typescript", "javascript", "html", "css", "bash", "cpp", "rust", "java",
+    "python", "go", "gcl", "json", "lua"
   },
   highlight = {
     enable = true,
-    disable = { "html" },
+    disable = {"html"},
     -- use_languagetree = true
     custom_captures = {
       ["cppConstant"] = "Nord7",
@@ -47,8 +36,17 @@ ts_config.setup {
       ["cppNamespaceDefinitionName"] = "Identifier",
       ["cppFunctionDeclaration"] = "TSKeyword",
       ["cppQualifiedIdentifier"] = "TSType",
-      ["cppExtraKeywords"] = "TSKeyword",
-    },
+      ["cppExtraKeywords"] = "TSKeyword"
+    }
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm"
+    }
   },
   playground = {
     enable = true,
@@ -65,15 +63,14 @@ ts_config.setup {
       unfocus_language = 'F',
       update = 'R',
       goto_node = '<cr>',
-      show_help = '?',
-    },
+      show_help = '?'
+    }
   }
 }
 
-vim.cmd[[
+vim.cmd [[
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldlevel=99
 set foldlevelstart=99
 ]]
-

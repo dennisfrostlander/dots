@@ -17,7 +17,12 @@ end
 
 return {
   s("up", fmt("std::unique_ptr<{}> {}", {i(1), i(0)})),
-  s("ok", {t("absl::OkStatus()")}),
+  s("df", fmt("ABSL_FLAG({type}, {name}, {default}, {desc});{e}",
+    {type = i(1), name = i(2), default = i(3), desc = i(4), e = i(0)})),
+  s("gf", fmt("absl::GetFlag(FLAGS_{name}){e}", {name = i(1), e = i(0)})),
+  s("sf", fmt("absl::SetFlag(&FLAGS_{name}, {val}){e}",
+    {name = i(1), val = i(2), e = i(0)})), --
+  s("ok", t("absl::OkStatus()")), --
   s("once", {
     f(function()
       local def = get_header_def()

@@ -4,7 +4,10 @@ require('formatter').setup({
       function()
         return {
           exe = "lua-format",
-          args = {"--indent-width", 2, "--continuation-indent-width", 2},
+          args = {
+            "--indent-width", 2, "--continuation-indent-width", 2,
+            "--no-align-args"
+          },
           stdin = true
         }
       end

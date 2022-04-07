@@ -99,7 +99,7 @@ local opt = {noremap = true, silent = true}
 vim.api.nvim_set_keymap("n", "<Leader><Space>",
   [[<cmd>lua require('navigation_piper').recent_files()<CR>]],
   opt)
-vim.api.nvim_set_keymap("n", "<Leader>m",
+vim.api.nvim_set_keymap("n", "<Leader>ff",
   [[:lua find_files()<CR>]],
   opt)
 vim.api.nvim_set_keymap("n", "<Leader>fp",

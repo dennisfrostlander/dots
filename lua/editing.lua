@@ -19,17 +19,28 @@ vim.api.nvim_set_keymap("n", "N", "Nzzzv", {noremap = true})
 vim.api.nvim_set_keymap("n", "J", "mzJ`z", {noremap = true})
 
 vim.api.nvim_set_keymap("n", "*",
-                        [[:let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>]],
-                        {})
+  [[:let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>]], {})
 vim.api.nvim_set_keymap("n", "<Leader>*",
-                        [[(&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"]],
-                        {expr = true})
+  [[(&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"]], {expr = true})
 
 -- lowercase marks behave like uppercase
 vim.api.nvim_set_keymap("n", "'", [["'".toupper(nr2char(getchar()))]],
-                        {noremap = true, expr = true});
+  {noremap = true, expr = true});
 vim.api.nvim_set_keymap("n", "m", [["m".toupper(nr2char(getchar()))]],
-                        {noremap = true, expr = true});
+  {noremap = true, expr = true});
+
+-- Do not yank on d/c text objects.
+vim.api.nvim_set_keymap("n", "d", [["_d]], {noremap = true});
+vim.api.nvim_set_keymap("v", "d", [["_d]], {noremap = true});
+vim.api.nvim_set_keymap("n", "D", [["_D]], {noremap = true});
+vim.api.nvim_set_keymap("v", "D", [["_D]], {noremap = true});
+vim.api.nvim_set_keymap("n", "c", [["_c]], {noremap = true});
+vim.api.nvim_set_keymap("v", "c", [["_c]], {noremap = true});
+vim.api.nvim_set_keymap("n", "C", [["_C]], {noremap = true});
+vim.api.nvim_set_keymap("v", "C", [["_C]], {noremap = true});
+
+-- Do not yank when pasting in visual mode.
+vim.api.nvim_set_keymap("v", "p", [["_dP]], {noremap = true});
 
 vim.g.better_whitespace_enabled = false
 vim.g.strip_whitespace_on_save = true

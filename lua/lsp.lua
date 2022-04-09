@@ -9,22 +9,11 @@ local function setup_document_highlight()
     au! * <buffer>
     autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
     autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-  augroup
+  augroup END
   ]]
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  }
-}
-
 require("lspconfig").tsserver.setup {
-  capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities),
   on_attach = function(client, bufnr)
     local ts_utils = require("nvim-lsp-ts-utils")
     ts_utils.setup {}
@@ -38,12 +27,8 @@ require("lspconfig").tsserver.setup {
     }
   }
 }
-require("lspconfig").cssls.setup {
-  capabilities = capabilities,
-}
-require("lspconfig").html.setup {
-  capabilities = capabilities,
-}
+require("lspconfig").cssls.setup { }
+require("lspconfig").html.setup { }
 
 -- Add a CiderLSP configuration.
 local nvim_lsp = require('lspconfig')
@@ -133,11 +118,6 @@ map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 -- map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 -- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 
--- map("n", "<Leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
--- map("n", "<Leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
--- map("n", "<Leader>wl",
---     "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>",
--- -- --     opts)
 map("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 map("n", "<Leader>ri", ":TSLspOrganizeSync<CR>", {silent = true})
 map("n", "<Leader>j", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)

@@ -19,8 +19,7 @@ parser_config.gcl = {
   }
 }
 
-local ts_config = require("nvim-treesitter.configs")
-ts_config.setup {
+require("nvim-treesitter.configs").setup {
   ensure_installed = {
     "typescript", "javascript", "html", "css", "bash", "cpp", "rust", "java",
     "python", "go", "gcl", "json", "lua"
@@ -64,6 +63,41 @@ ts_config.setup {
       update = 'R',
       goto_node = '<cr>',
       show_help = '?'
+    }
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@call.outer"
+      }
+    },
+    swap = {
+      enable = true,
+      swap_next = {["<Leader>a"] = "@parameter.inner"},
+      swap_previous = {["<Leader>A"] = "@parameter.inner"}
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {["]m"] = "@function.outer", ["]]"] = "@class.outer"},
+      goto_next_end = {["]M"] = "@function.outer", ["]["] = "@class.outer"},
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer"
+      },
+      goto_previous_end = {["[M"] = "@function.outer", ["[]"] = "@class.outer"}
+    },
+    lsp_interop = {
+      enable = true,
+      border = 'none',
+      peek_definition_code = {
+        ["<leader>df"] = "@function.outer",
+        ["<leader>dF"] = "@class.outer"
+      }
     }
   }
 }

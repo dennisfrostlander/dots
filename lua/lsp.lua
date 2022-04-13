@@ -3,14 +3,16 @@ vim.cmd [[packadd nvim-lspconfig]]
 -- Uncomment for debugging: lua vim.cmd('tabe'..vim.lsp.get_log_path())
 -- vim.lsp.set_log_level("debug")
 
-local function setup_document_highlight()
-  vim.cmd[[
-  augroup doc_highlight
-    au! * <buffer>
-    autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-  augroup END
-  ]]
+local function setup_document_highlight(client)
+  if client.resolved_capabilities.document_highlight then
+    vim.cmd[[
+    augroup doc_highlight
+      au!
+      au CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+      au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+    augroup END
+    ]]
+  end
 end
 
 require("lspconfig").tsserver.setup {
@@ -19,7 +21,7 @@ require("lspconfig").tsserver.setup {
     ts_utils.setup {}
     ts_utils.setup_client(client)
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>rf", ":TSLspRenameFile<CR>", {silent = true})
-    setup_document_highlight()
+    setup_document_highlight(client)
   end,
   init_options = {
     preferences = {
@@ -45,19 +47,8 @@ configs.ciderlsp = {
 -- Setup CiderLSP.
 nvim_lsp.ciderlsp.setup{
   on_attach = function(client, bufnr)
-    -- Omni-completion via LSP. See `:help compl-omni`. Use <C-x><C-o> in
-    -- insert mode. Or use an external autocompleter (see below) for a
-    -- smoother UX.
-    vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-    if vim.lsp.formatexpr then -- Neovim v0.6.0+ only.
-      vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr")
-    end
-    if vim.lsp.tagfunc then -- Neovim v0.6.0+ only.
-      -- Tag functionality via LSP. See `:help tag-commands`. Use <c-]> to
-      -- go-to-definition.
-      vim.api.nvim_buf_set_option(bufnr, "tagfunc", "v:lua.vim.lsp.tagfunc")
-    end
-    setup_document_highlight()
+    vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr")
+    setup_document_highlight(client)
   end
 }
 

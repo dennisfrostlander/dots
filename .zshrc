@@ -40,7 +40,8 @@ git_prompt_info() {
   if ! [[ -z ${ws} ]]; then
     BLUE='\033[0;36m'
     NC='\033[0m'
-    echo "${BLUE}[${ws}]${NC} "
+    # echo "${BLUE}[${ws}]${NC} "
+    echo "[${ws}] "
   fi
 }
 

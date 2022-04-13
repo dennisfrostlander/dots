@@ -1,4 +1,5 @@
 require("plugins")
+require("globals")
 
 require("general")
 require("editing")

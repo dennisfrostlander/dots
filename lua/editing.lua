@@ -20,6 +20,9 @@ vim.api.nvim_set_keymap("n", "J", "mzJ`z", {noremap = true})
 
 vim.api.nvim_set_keymap("n", "*",
   [[:let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>]], {})
+vim.api.nvim_set_keymap("v", "*",
+                        [[y/\V<C-R>=escape(@",'/\')<CR><CR> ]],
+                        {})
 vim.api.nvim_set_keymap("n", "<Leader>*",
   [[(&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"]], {expr = true})
 

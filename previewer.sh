@@ -22,7 +22,7 @@ ifub() {
 # be regenerated once seen.
 
 case "$(file --dereference --brief --mime-type -- "$1")" in
-  # image/*) image "$1" "$2" "$3" "$4" "$5" ;;
+  image/*) image "$1" "$2" "$3" "$4" "$5" ;;
   # text/html) lynx -width="$4" -display_charset=utf-8 -dump "$1"  ;;
   # text/troff) man ./ "$1" | col -b ;;
   text/* | */xml | application/json) bat --terminal-width "$4" --style plain --theme Nord -f "$1" ;;

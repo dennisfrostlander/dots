@@ -21,8 +21,8 @@ parser_config.gcl = {
 
 require("nvim-treesitter.configs").setup {
   ensure_installed = {
-    "typescript", "javascript", "html", "css", "bash", "cpp", "rust", "java",
-    "python", "go", "gcl", "json", "lua"
+    "typescript", "javascript", "html", "css", "scss", "bash", "cpp", "rust",
+    "java", "python", "go", "gcl", "json", "lua"
   },
   highlight = {
     enable = true,
@@ -35,7 +35,9 @@ require("nvim-treesitter.configs").setup {
       ["cppNamespaceDefinitionName"] = "Identifier",
       ["cppFunctionDeclaration"] = "TSKeyword",
       ["cppQualifiedIdentifier"] = "TSType",
-      ["cppExtraKeywords"] = "TSKeyword"
+      ["cppExtraKeywords"] = "TSKeyword",
+
+      ["cssClass"] = "TSType"
     }
   },
   incremental_selection = {

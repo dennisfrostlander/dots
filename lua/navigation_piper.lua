@@ -1,16 +1,35 @@
 local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
 local make_entry = require "telescope.make_entry"
-local conf = require "telescope.config".values
+local conf = require"telescope.config".values
 local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"
 
 local M = {}
 local user = vim.fn.expand("$USER")
-local ws_pattern = "(/google/src/cloud/"..user.."/)([%a%d]+)(.*)"
+local ws_pattern = "(/google/src/cloud/" .. user .. "/)([%a%d]+)(.*)"
+
+local recent_bufs = {}
+local recent_cnt = 0
+
+_G.recents_buf_enter = function()
+  local current_buffer = vim.api.nvim_get_current_buf()
+  local current_file = vim.api.nvim_buf_get_name(current_buffer)
+  if current_file ~= "" then
+    recent_bufs[current_file] = recent_cnt
+    recent_cnt = recent_cnt + 1
+  end
+end
+
+vim.cmd [[
+augroup recents
+  au!
+  au! BufEnter * lua recents_buf_enter(123)
+augroup END
+]]
 
 local function get_workspace_dir(ws)
-  return "/google/src/cloud/"..user.."/"..ws
+  return "/google/src/cloud/" .. user .. "/" .. ws
 end
 
 local function parse_workspace_path(p)
@@ -44,30 +63,52 @@ M.recent_files = function(opts)
   local current_file = vim.api.nvim_buf_get_name(current_buffer)
   local results = {}
   local cur_ws = parse_workspace_path(vim.fn.getcwd())
+  local old_files_map = {}
 
-  for _, file in ipairs(vim.v.oldfiles) do
+  for i, file in ipairs(vim.v.oldfiles) do
     if file ~= current_file then
       add_recent_file(cur_ws, results, file, opts)
+      old_files_map[file] = i
     end
   end
-  local buffers = vim.api.nvim_list_bufs()
-  for _, buffer in ipairs(buffers) do
-    if vim.api.nvim_buf_is_loaded(buffer) then
-      local file = vim.api.nvim_buf_get_name(buffer)
-      if file ~= current_file then
-        add_recent_file(cur_ws, results, file, opts)
+  for _, buffer_file in ipairs(recent_bufs) do
+    if buffer_file ~= current_file then
+      add_recent_file(cur_ws, results, buffer_file, opts)
+    end
+  end
+  table.sort(results, function(a, b)
+    local a_recency = recent_bufs[a]
+    local b_recency = recent_bufs[b]
+    if a_recency == nil and b_recency == nil then
+      local a_old = old_files_map[a]
+      local b_old = old_files_map[b]
+      if a_old == nil and b_old == nil then
+        return a < b
       end
+      if a_old == nil then
+        return false
+      end
+      if b_old == nil then
+        return true
+      end
+      return a_old < b_old
     end
-  end
-
+    if a_recency == nil then
+      return false
+    end
+    if b_recency == nil then
+      return true
+    end
+    return b_recency < a_recency
+  end)
   pickers.new(opts, {
-    prompt_title = "Oldfiles",
+    prompt_title = "Recent files",
     finder = finders.new_table {
       results = results,
-      entry_maker = opts.entry_maker or make_entry.gen_from_file(opts),
+      entry_maker = opts.entry_maker or make_entry.gen_from_file(opts)
     },
-    sorter = conf.generic_sorter(opts),
-    previewer = conf.file_previewer(opts),
+    sorter = conf.file_sorter(opts),
+    previewer = conf.file_previewer(opts)
   }):find()
 end
 
@@ -86,7 +127,7 @@ M.find_workspaces = function(opts)
     prompt_title = "Workspaces",
     finder = finders.new_table {
       results = results,
-      entry_maker = opts.entry_maker or make_entry.gen_from_file(opts),
+      entry_maker = opts.entry_maker or make_entry.gen_from_file(opts)
     },
     sorter = conf.file_sorter(opts),
     attach_mappings = function(prompt_bufnr)
@@ -97,7 +138,7 @@ M.find_workspaces = function(opts)
         vim.cmd("cd " .. dir)
       end)
       return true
-    end,
+    end
   }):find()
 end
 

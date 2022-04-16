@@ -6,7 +6,8 @@ require('formatter').setup({
           exe = "lua-format",
           args = {
             "--indent-width", 2, "--continuation-indent-width", 2,
-            "--no-align-args"
+            "--no-align-args", "--no-keep-simple-control-block-one-line",
+            "--no-keep-simple-function-one-line"
           },
           stdin = true
         }

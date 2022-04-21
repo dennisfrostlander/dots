@@ -29,6 +29,8 @@ hi! link TSVariableBuiltin Keyword
 hi! link TSBoolean Keyword
 hi! link TSConstructor TSFunction
 
+hi! link sdlStatement TSKeyword
+
 hi! TSParameter gui=italic
 hi! clear TSVariable
 

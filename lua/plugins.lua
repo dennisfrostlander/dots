@@ -59,4 +59,5 @@ return require("packer").startup(function(use)
   use {"tweekmonster/startuptime.vim"}
 
   use {"sso://googler@user/vintharas/telescope-codesearch.nvim"}
+  use {"sso://@user/chmnchiang/google-comments"}
 end)

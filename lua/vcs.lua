@@ -76,3 +76,4 @@ require'diffview'.setup {
   }
 }
 
+require('google.comments').setup()

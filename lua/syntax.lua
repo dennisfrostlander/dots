@@ -3,7 +3,8 @@ vim.cmd "syntax manual"
 vim.cmd([[
 augroup syntax
   au!
-  au FileType html,yaml,gitcommit,hgcommit,proto,bzl,sh,zsh,tmux,conf,markdown,vim,help setlocal syntax=ON
+  au FileType html,yaml,gitcommit,hgcommit,proto,bzl,sh,zsh,tmux,conf,markdown,vim,help,sdl setlocal syntax=ON
+  au FileType textproto setlocal syntax=conf
 augroup END
 ]])
 

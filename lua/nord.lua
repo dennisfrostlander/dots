@@ -34,6 +34,11 @@ hi! link sdlStatement TSKeyword
 hi! TSParameter gui=italic
 hi! clear TSVariable
 
+hi! link LogInfo Nord9
+hi! link LogWarn Nord13
+hi! link LogError Nord11
+hi! link LogFatal Nord15
+
 hi nCursor guibg=white
 
 hi LspSignatureActiveParameter gui=underline

@@ -22,7 +22,7 @@ parser_config.gcl = {
 
 require("nvim-treesitter.configs").setup {
   ensure_installed = {
-    "typescript", "javascript", "html", "css", "scss", "bash", "cpp", "rust",
+    "typescript", "tsx", "javascript", "html", "css", "scss", "bash", "cpp", "rust",
     "java", "python", "go", "gcl", "json", "lua"
   },
   highlight = {

@@ -56,7 +56,7 @@ local function add_recent_file(cur_ws, results, file_path, opts)
   end
 end
 
-M.recent_files = function(opts)
+M.prepare_recent_files = function(opts)
   opts = opts or {}
   opts.ignore_pattern = opts.ignore_pattern or "/google/obj/workspace/"
   local current_buffer = vim.api.nvim_get_current_buf()
@@ -71,7 +71,7 @@ M.recent_files = function(opts)
       old_files_map[file] = i
     end
   end
-  for _, buffer_file in ipairs(recent_bufs) do
+  for buffer_file in pairs(recent_bufs) do
     if buffer_file ~= current_file then
       add_recent_file(cur_ws, results, buffer_file, opts)
     end
@@ -101,10 +101,15 @@ M.recent_files = function(opts)
     end
     return b_recency < a_recency
   end)
+  return results
+end
+
+M.recent_files = function(opts)
+  opts = opts or {}
   pickers.new(opts, {
     prompt_title = "Recent files",
     finder = finders.new_table {
-      results = results,
+      results = M.prepare_recent_files(opts),
       entry_maker = opts.entry_maker or make_entry.gen_from_file(opts)
     },
     sorter = conf.file_sorter(opts),
@@ -140,6 +145,10 @@ M.find_workspaces = function(opts)
       return true
     end
   }):find()
+end
+
+M.recent_bufs = function()
+  return recent_bufs
 end
 
 return M

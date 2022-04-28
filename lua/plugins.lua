@@ -23,7 +23,7 @@ return require("packer").startup(function(use)
 
   use {"tpope/vim-fugitive"}
   use {"lewis6991/gitsigns.nvim"}
-  use {"mhinz/vim-signify"}
+  -- use {"mhinz/vim-signify"}
   use {"sindrets/diffview.nvim"}
   use {"christoomey/vim-tmux-navigator"}
 

@@ -1,9 +1,9 @@
-vim.cmd([[
-let g:signify_skip = { 'vcs': { 'allow': ['hg'] } }
-]])
-vim.api.nvim_set_keymap("n", "<Leader>hp", ":SignifyHunkDiff<CR>", {noremap = true})
-vim.api.nvim_set_keymap("n", "<Leader>hr", ":SignifyHunkUndo<CR>", {noremap = true})
-vim.api.nvim_set_keymap("n", "<Leader>hd", ":SignifyDiff<CR>", {noremap = true})
+-- vim.cmd([[
+-- let g:signify_skip = { 'vcs': { 'allow': ['hg'] } }
+-- ]])
+-- vim.api.nvim_set_keymap("n", "<Leader>hp", ":SignifyHunkDiff<CR>", {noremap = true})
+-- vim.api.nvim_set_keymap("n", "<Leader>hr", ":SignifyHunkUndo<CR>", {noremap = true})
+-- vim.api.nvim_set_keymap("n", "<Leader>hd", ":SignifyDiff<CR>", {noremap = true})
 
 require("gitsigns").setup {
   -- signs = {

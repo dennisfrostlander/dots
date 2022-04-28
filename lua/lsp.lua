@@ -93,6 +93,9 @@ require("lsp_signature").setup({
 })
 
 require("trouble").setup()
+require("litee.lib").setup({})
+require("litee.calltree").setup({})
+require("litee.symboltree").setup({})
 
 local function map(mode, lhs, rhs, opts)
     local options = {noremap = true}

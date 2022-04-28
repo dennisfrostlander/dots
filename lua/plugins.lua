@@ -51,6 +51,9 @@ return require("packer").startup(function(use)
   use {"ray-x/lsp_signature.nvim"}
   use {"mhartington/formatter.nvim"}
   use {"folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons"}
+  use {"ldelossa/litee.nvim"}
+  use {"ldelossa/litee-calltree.nvim"}
+  use {"ldelossa/litee-symboltree.nvim"}
 
   use {"nvim-telescope/telescope.nvim"}
   use {"nvim-telescope/telescope-fzf-native.nvim", run = 'make'}

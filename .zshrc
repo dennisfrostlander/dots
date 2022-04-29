@@ -14,7 +14,8 @@ export PATH="$HOME/.local/bin:$PATH"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="/usr/local/opt/ruby@2.7/bin:$PATH"
-export PATH=~/bin:$PATH
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/bin/nvim-linux64/bin:$PATH"
 
 export VISUAL=nvim;
 export EDITOR=nvim;

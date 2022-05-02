@@ -5,7 +5,7 @@ vim.cmd [[packadd nvim-lspconfig]]
 
 local function setup_document_highlight(client)
   if client.resolved_capabilities.document_highlight then
-    vim.cmd[[
+    vim.cmd [[
     augroup doc_highlight
       au!
       au CursorHold <buffer> lua vim.lsp.buf.document_highlight()
@@ -20,32 +20,35 @@ require("lspconfig").tsserver.setup {
     local ts_utils = require("nvim-lsp-ts-utils")
     ts_utils.setup {}
     ts_utils.setup_client(client)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>rf", ":TSLspRenameFile<CR>", {silent = true})
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>rf",
+      ":TSLspRenameFile<CR>", {silent = true})
     setup_document_highlight(client)
   end,
-  init_options = {
-    preferences = {
-      importModuleSpecifierPreference = "relative"
-    }
-  }
+  init_options = {preferences = {importModuleSpecifierPreference = "relative"}}
 }
-require("lspconfig").cssls.setup { }
-require("lspconfig").html.setup { }
+require("lspconfig").cssls.setup {}
+require("lspconfig").html.setup {}
 
 -- Add a CiderLSP configuration.
 local nvim_lsp = require('lspconfig')
 local configs = require('lspconfig.configs')
 configs.ciderlsp = {
- default_config = {
-   cmd = {'/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp' , '--noforward_sync_responses'};
-   filetypes = {'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl', 'sql', 'gcl', 'markdown'};
-   root_dir = nvim_lsp.util.root_pattern('BUILD');
-   settings = {};
- }
+  default_config = {
+    cmd = {
+      '/google/bin/releases/cider/ciderlsp/ciderlsp', '--tooltag=nvim-lsp',
+      '--noforward_sync_responses'
+    },
+    filetypes = {
+      'c', 'cpp', 'java', 'proto', 'textproto', 'go', 'python', 'bzl', 'sql',
+      'gcl', 'markdown'
+    },
+    root_dir = nvim_lsp.util.root_pattern('BUILD'),
+    settings = {}
+  }
 }
 
 -- Setup CiderLSP.
-nvim_lsp.ciderlsp.setup{
+nvim_lsp.ciderlsp.setup {
   on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr")
     setup_document_highlight(client)
@@ -63,29 +66,25 @@ require'lspconfig'.sumneko_lua.setup {
         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = 'LuaJIT',
         -- Setup your lua path
-        path = runtime_path,
+        path = runtime_path
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
+        globals = {'vim'}
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
+        library = vim.api.nvim_get_runtime_file("", true)
       },
       -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
+      telemetry = {enable = false}
+    }
+  }
 }
 
 require("lsp_signature").setup({
   bind = true,
-  handler_opts = {
-    border = "single"
-  },
+  handler_opts = {border = "single"},
   hint_enable = false,
   floating_window = true,
   fix_pos = true,
@@ -95,12 +94,14 @@ require("lsp_signature").setup({
 require("trouble").setup()
 require("litee.lib").setup({})
 require("litee.calltree").setup({})
-require("litee.symboltree").setup({})
+require("litee.symboltree").setup({keymaps = {expand = "l", collapse = "h"}})
 
 local function map(mode, lhs, rhs, opts)
-    local options = {noremap = true}
-    if opts then options = vim.tbl_extend("force", options, opts) end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  local options = {noremap = true}
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 local opts = {noremap = true}
@@ -128,4 +129,5 @@ vim.cmd([[
 autocmd FileType help nmap <buffer> gd <C-]>
 ]])
 map("n", "<Leader>vd", ":TroubleToggle lsp_workspace_diagnostics<CR>", opts)
-
+map("n", "<Leader>vo", ":lua vim.lsp.buf.document_symbol()<CR>", opts)
+map("n", "<Leader>vc", ":LTPanel<CR>", opts)

@@ -1,6 +1,6 @@
 ((identifier) @cppConstant
  (.match? @cppConstant "^[A-Z][A-Z_]+$")
- (#set! "priority" 120)
+ (#set! "priority" 110)
 )
 
 ((identifier) @gmacrosSubtle

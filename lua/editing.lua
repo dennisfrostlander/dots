@@ -35,6 +35,8 @@ vim.api.nvim_set_keymap("n", "c", [["_c]], {noremap = true});
 vim.api.nvim_set_keymap("v", "c", [["_c]], {noremap = true});
 vim.api.nvim_set_keymap("n", "C", [["_C]], {noremap = true});
 vim.api.nvim_set_keymap("v", "C", [["_C]], {noremap = true});
+vim.api.nvim_set_keymap("n", "x", [["_x]], {noremap = true});
+vim.api.nvim_set_keymap("v", "x", [["_x]], {noremap = true});
 
 -- Do not yank when pasting in visual mode.
 vim.api.nvim_set_keymap("v", "p", [["_dP]], {noremap = true});

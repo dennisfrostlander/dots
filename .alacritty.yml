@@ -13,7 +13,7 @@ font:
 window:
   dynamic_padding: false
   # decorations: None
-background_opacity: .9
+background_opacity: .93
 
 # Colors (Nord)
 colors:

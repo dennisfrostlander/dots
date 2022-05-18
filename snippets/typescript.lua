@@ -9,5 +9,6 @@ print("typescript snippets")
 return {
   s("af", fmt([[({}) => {{
   {}
-}}]], {i(1), i(0)}))
+}}]], {i(1), i(0)})), --
+  s("afs", fmt("({}) => {}", {i(1), i(0)}))
 }, nil

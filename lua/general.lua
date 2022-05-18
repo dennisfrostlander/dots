@@ -38,7 +38,7 @@ vim.api.nvim_set_keymap("n", "<Leader>yf", [[:let @+ = fnamemodify(expand("%"), 
   {noremap = true})
 vim.api.nvim_set_keymap("n", "<Leader>yF", [[:let @+ = expand("%:p")<CR>]],
   {noremap = true})
-vim.api.nvim_set_keymap("n", "<Leader>R", [[:luafile %]],
+vim.api.nvim_set_keymap("n", "<Leader>R", [[:luafile %<CR>]],
   {noremap = true})
 
 vim.cmd([[

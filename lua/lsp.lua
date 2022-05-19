@@ -112,6 +112,7 @@ map("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 -- map("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 -- map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+map("n", "gb", "<cmd>lua require'g3.build'.goto_build_rule()<CR>", opts)
 
 map("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 map("n", "<Leader>ri", ":TSLspOrganizeSync<CR>", {silent = true})

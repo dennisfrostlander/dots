@@ -20,6 +20,8 @@ parser_config.gcl = {
     requires_generate_from_grammar = false -- if folder contains pre-generated src/parser.c
   }
 }
+local ft_to_parser = require"nvim-treesitter.parsers".filetype_to_parsername
+ft_to_parser.bzl = "python"
 
 require("nvim-treesitter.configs").setup {
   ensure_installed = {

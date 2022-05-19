@@ -22,6 +22,10 @@ export EDITOR=nvim;
 export ANDROID_SDK_ROOT=~/Library/Android/sdk;
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_281.jdk/Contents/Home;
 
+# Turn monitor off 30 seconds after locking
+export XSECURELOCK_BLANK_DPMS_STATE=off
+export XSECURELOCK_BLANK_TIMEOUT=30
+
 source ~/.antigen.zsh
 antigen use oh-my-zsh
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -122,8 +126,8 @@ alias e='nvim'
 alias gt="cd ~/projects/travelhub-client"
 alias gtb="cd ~/projects/travelhub-build"
 
-alias fixjs=/google/src/components/head/google3/third_party/java_src/jscomp/java/com/google/javascript/jscomp/lint/fixjs.sh
 alias gsa=/google/src/files/head/depot/google3/java/com/google/android/apps/gsa/tools/gsa_cli/gsa_cli.sh
+alias conduit="/google/data/ro/teams/conduit/conduit/conduit_live/conduit"
 
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search

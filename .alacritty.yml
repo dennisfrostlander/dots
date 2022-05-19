@@ -13,7 +13,7 @@ font:
 window:
   dynamic_padding: false
   # decorations: None
-background_opacity: .93
+  opacity: 0.9
 
 # Colors (Nord)
 colors:
@@ -68,3 +68,6 @@ colors:
 key_bindings:
   - { key: Semicolon, mods: Control, chars: "\x00\x3b"  }
   - { key: Apostrophe, mods: Control, chars: "\x00\x27"  }
+
+env:
+  TERM: xterm-256color

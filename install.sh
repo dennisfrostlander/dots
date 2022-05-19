@@ -7,6 +7,7 @@ ln -s -f "${DIRPATH}"/.tmux.conf ~/.tmux.conf
 ln -s -f "${DIRPATH}"/.dir_colors ~/.dir_colors
 ln -s -f "${DIRPATH}"/.alacritty.yml ~/.alacritty.yml
 ln -s -f "${DIRPATH}"/lfrc ~/.config/lf/lfrc
+ln -s -f "${DIRPATH}"/.i3.conf ~/.config/i3/config
 ln -s -f "${DIRPATH}"/previewer.sh ~/.config/lf/previewer.sh
 
 curl -L git.io/antigen > ~/.antigen.zsh

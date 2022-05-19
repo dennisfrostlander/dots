@@ -26,6 +26,7 @@ return {
   s("up", fmt("std::unique_ptr<{}> {}", {i(1), i(0)})),
   s("mku", fmt("absl::make_unique<{}>({})", {i(1), i(0)})),
   s("rstr", fmt("R\"({})\"", {i(0)})),
+  s("cvec", fmt("const std::vector<{}>& {}", {i(1), i(0)})),
   -- flags
   s("df", fmt("ABSL_FLAG({type}, {name}, {default}, {desc});{e}",
     {type = i(1), name = i(2), default = i(3), desc = i(4), e = i(0)})),

@@ -8,6 +8,11 @@ vim.g.lf_map_keys = 0
 vim.g.lf_replace_netrw = 1
 vim.api.nvim_set_keymap("n", "<Leader>e", ":LfCurrentFile<CR>", {})
 
+vim.api.nvim_set_keymap("n", "<C-left>", ":TmuxNavigateLeft<CR>", {silent = true})
+vim.api.nvim_set_keymap("n", "<C-right>", ":TmuxNavigateRight<CR>", {silent = true})
+vim.api.nvim_set_keymap("n", "<C-up>", ":TmuxNavigateUp<CR>", {silent = true})
+vim.api.nvim_set_keymap("n", "<C-down>", ":TmuxNavigateDown<CR>", {silent = true})
+
 require("telescope").setup {
   defaults = {
     vimgrep_arguments = {

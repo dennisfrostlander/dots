@@ -66,8 +66,15 @@ colors:
     white: '#aeb3bb'
 
 key_bindings:
+  # Space + keys shortcuts for tmux.
   - { key: Semicolon, mods: Control, chars: "\x00\x3b"  }
   - { key: Apostrophe, mods: Control, chars: "\x00\x27"  }
+  # Extra options to send Esc for vim on colemak
+  - { key: Return, mods: Control, chars: "\x1b" }
+  - { key: Return, mods: Shift, chars: "\x1b" }
+  # Consistent C-w.
+  - { key: Back, mods: Option, chars: "\x17" }
+  - { key: Back, mods: Control, chars: "\x17" }
 
 env:
   TERM: xterm-256color

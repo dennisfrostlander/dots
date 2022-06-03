@@ -56,6 +56,7 @@ cmd extract ${{
 map X extract
 
 cmd copy-path ${{echo $f | pbcopy}}
+cmd echo-path ${{echo $f}}
 
 cmd fzf_jump ${{
   res="$(rg --no-heading --smart-case --files --follow --glob "" | fzf --reverse --header='Jump to location' | sed 's/\\/\\\\/g;s/"/\\"/g')"

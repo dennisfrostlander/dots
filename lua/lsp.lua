@@ -116,17 +116,16 @@ map("n", "gb", "<cmd>lua require'g3.build'.goto_build_rule()<CR>", opts)
 
 map("n", "<Leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 map("n", "<Leader>ri", ":TSLspOrganizeSync<CR>", {silent = true})
-map("n", "<Leader>j", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-map("n", "<Leader>n", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-map("v", "<Leader>j", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
-map("v", "<Leader>n", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
+map("n", "<Leader>a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+map("v", "<Leader>a", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 
 map("n", "gs", ":lua vim.lsp.buf.signature_help()<CR>", opts)
 map("n", "gh", ":lua vim.lsp.buf.hover()<CR>", opts)
 
 map("n", "[g", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 map("n", "]g", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-map("n", "<Leader>k", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
+map("n", "<Leader>j", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
+map("n", "<Leader>n", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
 
 vim.cmd([[
 autocmd FileType help nmap <buffer> gd <C-]>
